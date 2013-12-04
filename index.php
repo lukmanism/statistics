@@ -13,6 +13,7 @@
 		<link rel="stylesheet" href="css/style.css">
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script src="js/jquery.ui.touch-punch.min.js"></script>
 		<script src='js/include.js'></script>
     	<script src="js/kendo.dataviz.min.js"></script>
 	</head>
@@ -36,29 +37,6 @@
 
 <div class="clear"></div>
 
-<!-- 	<div class="legend_container">
-		<div class="widget_title">Perbandingan Belia vs. Penduduk</div>
-		<div class="widget_title_s">Untuk Tahun <span class="widget_tahun">2013</span></div>
-
-		<div class="line_summary">
-			<dl class="">
-		        <dt class="">Jumlah Belia</dt>
-		        <h3 class="belia_pcnt">48%</h3>
-		        <div class="widget_title_s belia_total"></div>
-		    </dl>
-		    <dl class="">
-		        <dd class=""><canvas id="pie" height="100px" width="100px"></canvas></dd>
-		    </dl>
-		    <dl class="">
-		        <dt class="">Jumlah Penduduk</dt>
-		        <h3 class="pop_pcnt">48%</h3>
-		        <div class="widget_title_s pop_total"></div>
-		    </dl>
-		</div>
-
-	</div> -->
-
-
 </div>
 
 	<div class="clear"></div>
@@ -73,8 +51,6 @@
 
 	<div class="bar_summary">
 		<div class="widget_title"><span class="thisdistrict">Batu Pahat</span> vs. <span class="thatdistrict">Batu Pahat</span></div>
-		<!-- <div class="widget_title_s">Untuk Tahun <span class="widget_tahun">2013</span></div> -->
-
 	
 			<div class="col2 vseparator summ">
 				<canvas id="pie" height="100px" width="100px"></canvas>
@@ -113,10 +89,6 @@
 	</div>
 
 	</div>
-
-
-
-
 </div>
 
 <?php

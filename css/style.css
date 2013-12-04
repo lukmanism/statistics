@@ -17,7 +17,9 @@ h1, h2, h3, h4 {
 	margin: 0px;
 	line-height: 24px;
 	float: left;
-	font-weight: normal;
+	font-weight: 600;
+    text-transform: uppercase;
+    width: 500px;
 }
 .bookmark {
 	background-image: url('../images/bookmark.png');
