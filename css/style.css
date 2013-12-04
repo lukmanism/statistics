@@ -29,7 +29,7 @@ h1, h2, h3, h4 {
 	float: left;
 }
 .header {	
-	padding: 24px 0 24px 36px;
+	padding: 24px 0;
 	height: 24px;
 }
 .content {
@@ -39,8 +39,10 @@ h1, h2, h3, h4 {
 
 }
 .container {
-	width: 688px;
-	padding: 0px 24px 40px 24px;
+	clear: both;
+    float: left;
+    padding: 0 24px 40px;
+    width: 688px;
 }
 #linechart {
 }
@@ -50,9 +52,9 @@ h1, h2, h3, h4 {
     border: medium none;
     float: right;
     height: 6px;
-    margin-right: 12px;
+    margin-right: 16px;
     margin-top: 22px;
-    width: 522px;
+    width: 605px;
 }
 
 .ui-slider .ui-slider-handle{
@@ -156,20 +158,23 @@ h1, h2, h3, h4 {
 }
 .summary span,
 .legend span {
-	font-weight: 900;
+	font-weight: 600;
 	text-transform: uppercase;
 }
 .summary h3,
-.legend h3 {
+.legend_container h3,
+.bar_summary h3 {
 	font-size: 2.5em;
 	line-height: 1em;
 	margin: 0px;
 	padding: 0px;
 }
-.belia_total {
-	color: #70b5dd;
+.belia_pcnt,
+.Bbelia_pcnt {
+	color: #4DA3D5;
 }
-.pop_total {
+.pop_pcnt,
+.Bpop_pcnt {
 	color: #1c638d;
 }
 
@@ -208,7 +213,109 @@ h1, h2, h3, h4 {
 #compare {
     display: inline-block;
     height: 136px;
-    margin: 1.2em 0 0 4em;
+    margin-top: 20px;
     vertical-align: top;
-    width: 615px;
+    width: 688px;
+}
+
+.bar_summary {
+	width: 100%;
+	vertical-align: top;
+	margin-top: 20px;
+}
+.line_summary {
+	width: auto;
+	vertical-align: top;
+}
+.bar_summary dl {
+	display: inline-block;
+	vertical-align: top;
+	width: 46%;
+	text-align: center;
+}
+.line_summary dl {
+	display: inline-block;
+	vertical-align: top;
+	width: auto;
+	text-align: center;
+	margin-right: 20px;
+	width: 21%;
+}
+.bar_summary dd,
+.bar_summary dt {
+	margin: 0;
+	clear: both;
+	margin-right: auto;
+	margin-left: auto;
+	height: 30px;
+	font-weight: 600;
+    text-transform: uppercase;
+}
+.bar_summary dd {
+    width: 70%;
+}
+.bar_summary dl .widget_title_s,
+.line_summary dl .widget_title_s {
+	margin-top: -10px;
+	margin-bottom: 6px;
+
+}
+
+.bar_summary h3 {
+	margin-top: -10px;
+    padding-bottom: 4px;
+}
+.bar_summary dt{
+	font-size: 0.66em;
+}
+.bar_summary .BeliaPcnt {
+	font-size: 1.75em;
+}
+.line_summary dd,
+.line_summary dt {
+	width: auto;
+	margin: 0;
+	clear: both;
+	margin-right: auto;
+	margin-left: auto;
+	height: 20px;
+	font-size: 0.7em;
+	font-weight: 600;
+    text-transform: uppercase;
+}
+.comparison {
+	width: 100%;
+	margin-top: 20px;
+}
+
+.widget_title{
+	padding-top: 20px;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+.widget_title span{
+	display: inline-block;
+	width: 47%;
+	text-align: center;
+}
+.widget_title_s {
+	font-size: 0.6em;
+    text-transform: none;
+    font-weight: 100;
+}
+.separator {
+	margin-top: 20px;
+    background: none repeat scroll 0 0 #B3BBC5;
+    height: 1px;
+}
+.vseparator {
+	border-right: dashed 1px #B3BBC5;
+}
+.col2 {
+	width: 49.5%;
+	text-align: center;
+	float: left;
+}
+.summ {
+	margin-top: 20px;
 }

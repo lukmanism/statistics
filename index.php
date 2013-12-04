@@ -10,13 +10,9 @@
 		<script src="js/Chart.js"></script>
 		<link rel="stylesheet" href="css/jquery-ui.css">
     	<link href="css/kendo.dataviz.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="css/style.css">
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-		<link rel="stylesheet" href="css/style.css">
-        <script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
-		<script src="js/jquery.ui.touch-punch.min.js"></script>
-		<script src='js/swipe.js'></script>
-		<script src='js/swipe.js'></script>
 		<script src='js/include.js'></script>
     	<script src="js/kendo.dataviz.min.js"></script>
 	</head>
@@ -40,45 +36,82 @@
 
 <div class="clear"></div>
 
-	<div class="legend_container">
-		<div class="widget_title">Comparison</div>
-		<div class="left legend">
-			<span>Jumlah Belia<h3 class="belia_total">163,100</h3></span>
-		</div>
-		<div class="right legend">
-			<canvas class="pie" id="jum_belia" height="100px" width="100px"></canvas>
-			<span>Jumlah Penduduk<h3 class="pop_total">390,200</h3></span>
+<!-- 	<div class="legend_container">
+		<div class="widget_title">Perbandingan Belia vs. Penduduk</div>
+		<div class="widget_title_s">Untuk Tahun <span class="widget_tahun">2013</span></div>
+
+		<div class="line_summary">
+			<dl class="">
+		        <dt class="">Jumlah Belia</dt>
+		        <h3 class="belia_pcnt">48%</h3>
+		        <div class="widget_title_s belia_total"></div>
+		    </dl>
+		    <dl class="">
+		        <dd class=""><canvas id="pie" height="100px" width="100px"></canvas></dd>
+		    </dl>
+		    <dl class="">
+		        <dt class="">Jumlah Penduduk</dt>
+		        <h3 class="pop_pcnt">48%</h3>
+		        <div class="widget_title_s pop_total"></div>
+		    </dl>
 		</div>
 
-<!-- 		<dl class="stat trend-container highest-container">
-	        <dt class="example-subtitle">Previous Year</dt>
-	        <dd class="highest"></dd>
-	        <dd class="sparkline highest-sparkline"></dd>
-	    </dl>
-	    <dl class="stat trend-container lowest-container">
-	        <dt class="example-subtitle">Next Year</dt>
-	        <dd class="lowest"></dd>
-	        <dd class="sparkline lowest-sparkline"></dd>
-	    </dl>
-	    <dl class="stat trend-container">
-	        <dt class="example-subtitle">YoY change</dt>
-	        <dd class="relative-value"></dd>
-	        <dd class="sparkline relative-value-sparkline"></dd>
-	    </dl>
- -->
-</div>
+	</div> -->
 
 
 </div>
 
 	<div class="clear"></div>
 
-
-
-
 	<div class="comparison">
-		<div class="widget_title">Comparison</div>
+		<div class="widget_title">Perbandingan Antara Daerah</div>
+		<div class="widget_title_s">Untuk Tahun <span class="widget_tahun">2013</span></div>
 		<div class="bar" id="compare" ></div>
+
+
+	<div class="clear"></div>
+
+	<div class="bar_summary">
+		<div class="widget_title"><span class="thisdistrict">Batu Pahat</span> vs. <span class="thatdistrict">Batu Pahat</span></div>
+		<!-- <div class="widget_title_s">Untuk Tahun <span class="widget_tahun">2013</span></div> -->
+
+	
+			<div class="col2 vseparator summ">
+				<canvas id="pie" height="100px" width="100px"></canvas>
+				<div class="clear"></div>
+			    <dl class="">
+			        <dt class="">Perbezaan Belia</dt>
+			        <h3 class="belia_pcnt">48%</h3>
+			        <div class="widget_title_s belia_total"></div>
+			        <dd class=""></dd>
+			    </dl>
+			    <dl class="">
+			        <dt class="">Perbezaan Penduduk</dt>
+			        <h3 class="pop_pcnt">48%</h3>
+			        <div class="widget_title_s pop_total"></div>
+			        <dd class=""></dd>
+			    </dl>
+			</div>
+			<div class="col2 summ">
+				<canvas id="cpie" height="100px" width="100px"></canvas>
+				<div class="clear"></div>
+			    <dl class="">
+			        <dt class="">Perbezaan Belia</dt>
+			        <h3 class="Bbelia_pcnt">48%</h3>
+			        <div class="widget_title_s Bbelia_total"></div>
+			        <dd class=""></dd>
+			    </dl>
+			    <dl class="">
+			        <dt class="">Perbezaan Penduduk</dt>
+			        <h3 class="Bpop_pcnt">48%</h3>
+			        <div class="widget_title_s Bpop_total"></div>
+			        <dd class=""></dd>
+			    </dl>
+			</div>
+
+
+	</div>
+
 	</div>
 
 
@@ -101,7 +134,8 @@
 		$scaleStepWidth = 100000;
 		$scaleStartValue = 100000;
 	}
-	$param = '?'.$push.'='.$get;
+	// $param = '?'.$push.'='.$get;
+	$param = '?d=batu pahat,kluang,perlis,muar,tangkak,Pasir Mas,Kota Setar';
 ?>
 
 <script>
@@ -120,24 +154,26 @@ $(function() {
 			loaddata = data;
 	});
 
-	var stats_set = loaddata.length; // check data set
+	window.stats_set = loaddata.length; // check data set
 
 	// construct data from json
 	$.each(loaddata, function(key, val){
 		datas[key]= [{data: val.penduduk}, {data: val.belia}, {district: val.district}, {state: val.state}];
 	});
 
-	var year = 2013;
-	var min_year = 2008;
+	var district = (datas[0][2]['district'])? datas[0][2]['district']: '';
+	$('.title').text(district + ', ' + datas[0][3]['state']);
+
+	$('.thisdistrict').text(district);
+	$('.thatdistrict').text(district);
+
+	window.year = 2013;
+	window.min_year = 2008;
 
 	// Load Page
 	linechart(datas); //draw line chart
-	bar(stats_set,datas);
+	summary(stats_set,datas);
 	calculate(min_year, year, window.slideval); // render summary
-
-	// if(stats_set > 1){
-	// 	summary(stats_set-1);
-	// }
 
 	var slider = $( "#slider" ).slider({
 		value: year, //slider default value
@@ -148,104 +184,9 @@ $(function() {
 			// console.log(event, ui);
 			window.selected_year = ui.value;
 			calculate(min_year, ui.value, window.slideval);
-			bar(stats_set,datas,ui.value);
+			summary(stats_set,datas,ui.value);
 		}
 	});
-
-	var elem = document.getElementById('tabs');
-	window.tabs = Swipe(elem, {
-		startSlide: 0,
-		auto: 0,
-		continuous: false,
-		disableScroll: true,
-		stopPropagation: true,
-		callback: function(index, element) {
-			paginationState(index);
-	  	},
-	  	transitionEnd: function(index, element) {
-	  		var tab_year;
-			tab_year = (typeof window.selected_year == 'undefined')? year : window.selected_year;
-			if(index == 0){ // reset icon
-				calculate(min_year, tab_year, datas[index]);
-				$('.belia_diff').removeClass('up').removeClass('down');
-			} else {
-				comparison(min_year, tab_year, datas[index]);
-			}
-		}
-	});
-
-
-
-	function bar(stats_set,datas,x){
-		var cat = Array();
-		var Bbelia = Array();
-		var Bpenduduk = Array();
-
-		var index = (x)? (stats_set-1): (stats_set-1);
-
-		for (var i = 0; i < stats_set; i++) {
-			cat.push((datas[i][2]['district'])? datas[i][2]['district'] : datas[i][3]['state']);
-			Bbelia.push(datas[i][1]['data'][index]);
-			Bpenduduk.push(datas[i][0]['data'][index]);
-		};
-
-		// console.log(Bbelia,cat);
-
-		$("#compare").kendoChart({
-        axisDefaults: {
-            majorGridLines: { visible: false },
-            majorTicks: { visible: false }
-        },
-		legend: {
-		    visible: false
-		},
-		seriesDefaults: {
-		    type: "column",
-            stack: true,
-            border: {
-                width: 0
-            },
-            overlay: {
-                gradient: "none"
-            }
-		},
-		series: [{
-		    name: "Belia",
-		    data: Bbelia,
-            color: "#70B5DD"
-		}, {
-            name: "Penduduk",
-            data: Bpenduduk,
-            color: "#1C638D"
-        }],
-		valueAxis: {
-		    max: 140000,
-		    line: {
-		        visible: false
-		    },
-		    minorGridLines: {
-		        visible: false
-		    }
-		},
-		categoryAxis: {
-		    categories: cat,
-		    majorGridLines: {
-		        visible: false
-		    }
-		},
-        tooltip: {
-            visible: true,
-			template: function(e){
-				console.log(e);
-          		return e.series['name'] + ': ' + output(e.value,0); 
-			}
-        },
-        valueAxis: {
-            visible: false
-        },
-        legend: { visible: false }
-		});		
-	}
 
 
 });
