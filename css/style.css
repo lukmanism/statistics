@@ -2,14 +2,14 @@ body, html {
 	font-size: 18px;
 	font-family: helvetica;
 	line-height: 20px;
-	color: #353535;
+	color: #454447;
 	background-color: transparent;
 	padding: 0px;
 	margin: 0px;
 }
 h1, h2, h3, h4 {
 	font-family: helvetica;
-	color: #353535;
+	color: #454447;
 }
 .title {
 	font-size: 1em;
@@ -33,13 +33,13 @@ h1, h2, h3, h4 {
 	height: 24px;
 }
 .content {
-	width: 600px;
+	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
 
 }
 .container {
-	width: 728px;
+	width: 688px;
 	padding: 0px 24px 40px 24px;
 }
 #linechart {
@@ -120,25 +120,23 @@ h1, h2, h3, h4 {
 
 
 .legend_container {
-	width: 84%;
+	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
+	display: inline-block;
+	vertical-align: top;
 }
 .legend{
-	width:50%;
+	width:auto;
 	float: left;
 	text-align: center;
 	padding: 30px  0 30px 0px;
 	font-size: 0.7em;
-	height: 60px !important;
+	height: 100px;
 }
 .legend canvas,
 .legend span {
 	float: left;
-}
-.legend canvas{
-	width: 60px!important;
-	height: 60px!important;
 }
 .clear{
 	clear: both;
@@ -156,16 +154,25 @@ h1, h2, h3, h4 {
 	padding: 11px  0 11px 64px;
 	font-size: 0.7em;
 }
+.summary span,
+.legend span {
+	font-weight: 900;
+	text-transform: uppercase;
+}
 .summary h3,
 .legend h3 {
-	color: #f7941d;
-	font-size: 3em;
-	font-weight: normal;
-	font-family: georgia;
+	font-size: 2.5em;
 	line-height: 1em;
 	margin: 0px;
 	padding: 0px;
 }
+.belia_total {
+	color: #70b5dd;
+}
+.pop_total {
+	color: #1c638d;
+}
+
 
 .summary .belia_diff{
 	background-image: url('../images/diff.png');
@@ -198,3 +205,10 @@ h1, h2, h3, h4 {
   position: relative;
 }
 
+#compare {
+    display: inline-block;
+    height: 136px;
+    margin: 1.2em 0 0 4em;
+    vertical-align: top;
+    width: 615px;
+}
