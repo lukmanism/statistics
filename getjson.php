@@ -11,7 +11,11 @@ if (mysqli_connect_errno($conn)) {
 @$d = ($_GET['d'])? cleanURI($_GET['d']) : '';
 @$s = ($_GET['s'])? cleanURI($_GET['s']) : '';
 
-$query 	= ($d)? " WHERE district IN('$d') ORDER BY FIND_IN_SET(district,'".$_GET['d']."');":  " WHERE state IN('$s') ORDER BY FIND_IN_SET(state,'".$_GET['s']."');";
+
+$query = "WHERE ";
+$query .= ($d)? " district IN('$d') ORDER BY FIND_IN_SET(district,'".$_GET['d']."');":  " state IN('$s') ORDER BY FIND_IN_SET(state,'".$_GET['s']."');";
+
+
 $query 	= "SELECT * FROM belia ". $query;
 $result = mysqli_query($conn, $query);
 $json = '';

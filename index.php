@@ -26,65 +26,128 @@
 	<span class="bookmark"></span><h1 class="title"></h1>
 </div>
 
-<div class="clear"></div>
+	<div class="clear"></div>
 
-<div class="content">
-	<canvas id="linechart" height="200" width="688"></canvas>
+	<div class="content">
+		<div class="widget_title_s margin15">Graf Belia vs. Penduduk</div>
+		<canvas id="linechart" height="200" width="688"></canvas>
+		<div class="clear"></div>
+		<div id="slider"></div>
+		<div class="clear"></div>
 
-<div class="clear"></div>
+		<div class="col2 legend margin15">
+			<dl class="col2">
+				<dt class="grey50 left">Belia</dt>
+				<dd class="belia_total small left">198,060</dd>
+			</dl>
+			<dl class="col2">
+				<dt class="grey50 left">Penduduk</dt>
+				<dd class="pop_total small left">198,060</dd>
+			</dl>
+		</div>
 
-	<div id="slider"></div>
+	</div>
 
-<div class="clear"></div>
 
-</div>
 
 	<div class="clear"></div>
 
 	<div class="comparison">
-		<div class="widget_title">Perbandingan Antara Daerah</div>
+		<div class="widget_title top15">Perbandingan Antara Daerah</div>
 		<div class="widget_title_s">Untuk Tahun <span class="widget_tahun">2013</span></div>
-		<div class="bar" id="compare" ></div>
+		<div class="bar top15" id="compare" ></div>
 
 
 	<div class="clear"></div>
 
+	<div class="widget_title_s margin15">Perbandingan di antara <span class="thisdistrict">Batu Pahat</span> dengan <span class="thatdistrict">Batu Pahat</span></div>
 	<div class="bar_summary">
-		<div class="widget_title"><span class="thisdistrict">Batu Pahat</span> vs. <span class="thatdistrict">Batu Pahat</span></div>
+		<div class="widget_title bottom15"><span class="thisdistrict">Batu Pahat</span> vs. <span class="thatdistrict">Batu Pahat</span></div>
 	
-			<div class="col2 vseparator summ">
+			<div class="col2 vseparator">
 				<canvas id="pie" height="100px" width="100px"></canvas>
 				<div class="clear"></div>
-			    <dl class="">
-			        <dt class="">Perbezaan Belia</dt>
-			        <h3 class="belia_pcnt">48%</h3>
-			        <div class="widget_title_s belia_total"></div>
-			        <dd class=""></dd>
+			    <dl class="col2">
+			        <dt class="grey50">Perbezaan Belia</dt>
+			        <dd class="belia_pcnt large">48%</dd>
+			        <dd class="belia_total small"></dd>
 			    </dl>
-			    <dl class="">
-			        <dt class="">Perbezaan Penduduk</dt>
-			        <h3 class="pop_pcnt">48%</h3>
-			        <div class="widget_title_s pop_total"></div>
-			        <dd class=""></dd>
+			    <dl class="col2">
+			        <dt class="grey50">Perbezaan Penduduk</dt>
+			        <dd class="pop_pcnt large">48%</dd>
+			        <dd class="pop_total small"></dd>
 			    </dl>
 			</div>
-			<div class="col2 summ">
+			<div class="col2">
 				<canvas id="cpie" height="100px" width="100px"></canvas>
 				<div class="clear"></div>
-			    <dl class="">
-			        <dt class="">Perbezaan Belia</dt>
-			        <h3 class="Bbelia_pcnt">48%</h3>
-			        <div class="widget_title_s Bbelia_total"></div>
-			        <dd class=""></dd>
+			    <dl class="col2">
+			        <dt class="grey50">Perbezaan Belia</dt>
+			        <dd class="Bbelia_pcnt large">48%</dd>
+			        <dd class="Bbelia_total small"></dd>
 			    </dl>
-			    <dl class="">
-			        <dt class="">Perbezaan Penduduk</dt>
-			        <h3 class="Bpop_pcnt">48%</h3>
-			        <div class="widget_title_s Bpop_total"></div>
-			        <dd class=""></dd>
+			    <dl class="col2">
+			        <dt class="grey50">Perbezaan Penduduk</dt>
+			        <dd class="Bpop_pcnt large">48%</dd>
+			        <dd class="Bpop_total small"></dd>
 			    </dl>
 			</div>
 
+	<div class="clear"></div>
+
+		<div class="widget_title_s margin15">Perbezaan belia sebelum dan selepas tahun <span class="widget_tahun">2013</span></div>
+
+			<div class="col2 vseparator home">
+			    <dl class="col2">
+			        <dt class="grey50 widget_tahun_prev">2012</dt>
+			        <dd class="belia_diff_bfr_pcnt med up">40%</dd>
+			        <dd class="belia_diff_bfr small">198,060</dd>
+			    </dl>
+			    <dl class="col2">
+			        <dt class="grey50 widget_tahun_aft">2014</dt>
+			        <dd class="belia_diff_aft_pcnt med up">0%</dd>
+			        <dd class="belia_diff_aft small">0</dd>
+			    </dl>
+			</div>
+			<div class="col2 away">
+			    <dl class="col2">
+			        <dt class="grey50 widget_tahun_prev">2012</dt>
+			        <dd class="Bbelia_diff_bfr_pcnt med up">40%</dd>
+			        <dd class="Bbelia_diff_bfr small">198,060</dd>
+			    </dl>
+			    <dl class="col2">
+			        <dt class="grey50 widget_tahun_aft">2014</dt>
+			        <dd class="Bbelia_diff_aft_pcnt med up">0%</dd>
+			        <dd class="Bbelia_diff_aft small">0</dd>
+			    </dl>
+			</div>
+
+	<div class="clear"></div>
+
+		<div class="widget_title_s margin15">Perbezaan belia di antara <span class="thisdistrict">Batu Pahat</span> dengan <span class="thatdistrict">Batu Pahat</span> tahun <span class="widget_tahun">2013</span></div>
+
+	<div class="clear splitter1 vseparator"></div>
+	<div class="clear splitter2 bottom15"></div>
+
+			<div class="col3 home_diff">
+			    <dl class="">
+			        <dt class="grey50"><span class="thisdistrict">Batu Pahat</span></dt>
+			        <dd class="Dbelia_diff_pcnt med">40%</dd>
+			        <dd class="Dbelia_diff_total small">198,060</dd>
+			    </dl>
+			</div>
+			<div class="col3">
+				<dl class="">
+					<dd class=""><canvas id="pie" height="100px" width="100px"></canvas></dd>
+				</dl>
+			</div>
+			<div class="col3 away_diff">
+			    <dl class="">
+			        <dt class="grey50"><span class="thatdistrict">Batu Pahat</span></dt>
+			        <dd class="Dbelia_diff_pcnt med">60%</dd>
+			        <dd class="Dbelia_diff_total small">198,060</dd>
+			    </dl>
+			</div>
 
 	</div>
 
@@ -108,6 +171,7 @@
 	}
 	// $param = '?'.$push.'='.$get;
 	$param = '?d=batu pahat,kluang,perlis,muar,tangkak,Pasir Mas,Kota Setar';
+	$getYear = ($_GET['y'])? $_GET['y']: '';
 ?>
 
 <script>
@@ -139,24 +203,28 @@ $(function() {
 	$('.thisdistrict').text(district);
 	$('.thatdistrict').text(district);
 
+
+	var getYear = [<?php echo $getYear; ?>];
+
 	window.year = 2013;
 	window.min_year = 2008;
+	var step = 1;
 
 	// Load Page
 	linechart(datas); //draw line chart
-	summary(stats_set,datas);
 	calculate(min_year, year, window.slideval); // render summary
+	summary(stats_set,datas);
 
 	var slider = $( "#slider" ).slider({
 		value: year, //slider default value
 		min: min_year,
 		max: year,
-		step: 1,
+		step: step,
 		slide: function( event, ui ) {
-			// console.log(event, ui);
 			window.selected_year = ui.value;
 			calculate(min_year, ui.value, window.slideval);
 			summary(stats_set,datas,ui.value);
+			// console.log(selected_year);
 		}
 	});
 

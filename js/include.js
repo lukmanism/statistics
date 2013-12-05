@@ -87,35 +87,40 @@ function comparison(min, yearindex, dataset){
 	belia_diff_aft = window.belia_aft - belia_aft;
 	belia_diff_aft_pcnt = ((window.belia_aft/belia_aft) * 100)-100;
 
-	$(".belia_diff h3").text(output(belia_diff,0));
-	$(".belia_diff_pcnt h3").text(output(belia_diff_pcnt,2)+'%');
-	$(".belia_diff_bfr h3").text(output(belia_diff_bfr,0));
-	$(".belia_diff_bfr_pcnt h3").text(output(belia_diff_bfr_pcnt,2)+'%');
-	$(".belia_diff_aft h3").text(output(belia_diff_aft,0));
-	$(".belia_diff_aft_pcnt h3").text(output(belia_diff_aft_pcnt,2)+'%');
+	console.log('comparison',window.belia_bfr,belia_bfr);
 
-	// if(window.belia<belia){
-	// 	$('.belia_diff').removeClass('up').addClass('down');
-	// 	$('.belia_diff_pcnt .rating').text('Kekurangan');
-	// } else {
-	// 	$('.belia_diff').removeClass('down').addClass('up');
-	// 	$('.belia_diff_pcnt .rating').text('Kelebihan');
-	// }
-	// if(window.belia_bfr<belia_bfr){
-	// 	$('.belia_diff_bfr').removeClass('up').addClass('down');
-	// 	$('.belia_diff_bfr_pcnt .rating').text('Kekurangan');
-	// } else {
-	// 	$('.belia_diff_bfr').removeClass('down').addClass('up');
-	// 	$('.belia_diff_bfr_pcnt .rating').text('Kelebihan');
-	// }
-	// if(window.belia_aft<belia_aft){
-	// 	$('.belia_diff_aft').removeClass('up').addClass('down');
-	// 	$('.belia_diff_aft_pcnt .rating').text('Kekurangan');
-	// } else {
-	// 	$('.belia_diff_aft').removeClass('down').addClass('up');
-	// 	$('.belia_diff_aft_pcnt .rating').text('Kelebihan');
-	// }
+	loadDiffHome(penduduk,belia,belia_diff,belia_diff_pcnt,belia_diff_bfr,belia_diff_bfr_pcnt,belia_diff_aft,belia_diff_aft_pcnt);
 }
+
+function loadDiffHome(penduduk,belia,belia_diff,belia_diff_pcnt,belia_diff_bfr,belia_diff_bfr_pcnt,belia_diff_aft,belia_diff_aft_pcnt){
+	$(".belia_total").text(output(belia,0));
+	$(".pop_total").text(output(penduduk,0));
+	$(".belia_pcnt").text(output(belia_diff_pcnt,0)+'%');
+	$(".pop_pcnt").text(output((100 - belia_diff_pcnt),0)+'%');
+
+	$(".belia_diff").text(output(belia_diff,0));
+	$(".belia_diff_pcnt").text(output(belia_diff_pcnt,0)+'%');
+
+	$(".belia_diff_bfr").text(output(belia_diff_bfr,0));
+	$(".belia_diff_bfr_pcnt").text(output(belia_diff_bfr_pcnt,0)+'%');
+
+	$(".belia_diff_aft").text(output(belia_diff_aft,0));
+	$(".belia_diff_aft_pcnt").text(output(belia_diff_aft_pcnt,0)+'%');
+
+	if(belia_diff_bfr < 0){
+		$('.home .belia_diff_bfr_pcnt').removeClass('up').addClass('down');
+	} else {
+		$('.home .belia_diff_bfr_pcnt').removeClass('down').addClass('up');
+	}
+	if(belia_diff_aft < 0){
+		$('.home .belia_diff_aft_pcnt').removeClass('up').addClass('down');
+	} else {
+		$('.home .belia_diff_aft_pcnt').removeClass('down').addClass('up');
+	}	
+}
+
+
+
 
 function calculate(min, yearindex, dataset){
 	var index = yearindex - min;
@@ -131,29 +136,20 @@ function calculate(min, yearindex, dataset){
 
 	belia_diff = penduduk - belia;
 	belia_diff_pcnt = (belia/penduduk) * 100;
-	belia_diff_bfr = belia - belia_bfr;
-	belia_diff_bfr_pcnt = ((belia/belia_bfr) * 100)-100;
-	belia_diff_aft = belia - belia_aft;
-	belia_diff_aft_pcnt = ((belia/belia_aft) * 100)-100;
-
-	$(".belia_diff h3").text(output(belia_diff,0));
-	$(".belia_diff_pcnt h3").text(output(belia_diff_pcnt,2)+'%');
-	$(".belia_diff_bfr h3").text(output(belia_diff_bfr,0));
-	$(".belia_diff_bfr_pcnt h3").text(output(belia_diff_bfr_pcnt,2)+'%');
-	$(".belia_diff_aft h3").text(output(belia_diff_aft,0));
-	$(".belia_diff_aft_pcnt h3").text(output(belia_diff_aft_pcnt,2)+'%');
+	belia_diff_bfr = belia_bfr - belia;
+	belia_diff_bfr_pcnt = ((belia_bfr/belia) * 100)-100;
+	belia_diff_aft = belia_aft - belia;
+	belia_diff_aft_pcnt = ((belia_aft/belia) * 100)-100;
 
 	var piedata = [
 		{value: belia_diff, color: "#1c638d"},
 		{value: belia, color:"#4DA3D5"}
 	];
-
 	pie(piedata, 'pie');
 
-	$(".belia_total").text(output(belia,0));
-	$(".pop_total").text(output(penduduk,0));
-	$(".belia_pcnt").text(output(belia_diff_pcnt,0)+'%');
-	$(".pop_pcnt").text(output((100 - belia_diff_pcnt),0)+'%');
+	console.log('calculate',window.belia_bfr,belia_bfr);
+
+	loadDiffHome(penduduk,belia,belia_diff,belia_diff_pcnt,belia_diff_bfr,belia_diff_bfr_pcnt,belia_diff_aft,belia_diff_aft_pcnt);
 }
 
 function output(number, dec)	{
@@ -273,11 +269,48 @@ function pushSparklines(stats_set, getdata, min_year, year){
 
 	pie(piedata, 'cpie');
 
+
 	var belia_diff_pcnt = (Bbelia[index]/BPenduduk[index]) * 100;
+	var belia_diff_bfr_pcnt = ((Bbelia[index-1]/Bbelia[index]) * 100)-100;
+	var belia_diff_aft_pcnt = ((Bbelia[index+1]/Bbelia[index]) * 100)-100;
+
+	var belia_diff_bfr = (Bbelia[index-1]-Bbelia[index]);
+	var belia_diff_aft = (Bbelia[index+1]-Bbelia[index]);
+
 	$(".Bbelia_total").text(output(Bbelia[index]));
 	$(".Bpop_total").text(output(BPenduduk[index]));
 	$(".Bbelia_pcnt").text(output(belia_diff_pcnt,0)+'%');
 	$(".Bpop_pcnt").text(output((100 - belia_diff_pcnt),0)+'%');
+
+	$(".Bbelia_diff_bfr").text(output(belia_diff_bfr));
+	$(".Bbelia_diff_aft").text(output(belia_diff_aft));
+	$(".Bbelia_diff_bfr_pcnt").text(output(belia_diff_bfr_pcnt)+'%');
+	$(".Bbelia_diff_aft_pcnt").text(output(belia_diff_aft_pcnt)+'%');
+
+
+	var home_total = window.belia;
+	var away_total = Bbelia[index];
+	var home_pcnt = (home_total/(home_total + away_total)) * 100;
+	var away_pcnt = (away_total/(home_total + away_total)) * 100;
+
+
+	console.log('away:',home_total,away_total,home_pcnt,away_pcnt);
+
+	$(".home_diff .Dbelia_diff_total").text(output(home_total));
+	$(".away_diff .Dbelia_diff_total").text(output(away_total));
+	$(".home_diff .Dbelia_diff_pcnt").text(output(home_pcnt)+'%');
+	$(".away_diff .Dbelia_diff_pcnt").text(output(away_pcnt)+'%');
+
+	if(belia_diff_bfr < 0){
+		$('.away .Bbelia_diff_bfr_pcnt').removeClass('up').addClass('down');
+	} else {
+		$('.away .Bbelia_diff_bfr_pcnt').removeClass('down').addClass('up');
+	}
+	if(belia_diff_aft < 0){
+		$('.away .Bbelia_diff_aft_pcnt').removeClass('up').addClass('down');
+	} else {
+		$('.away .Bbelia_diff_aft_pcnt').removeClass('down').addClass('up');
+	}	
 }
 
 
@@ -303,6 +336,10 @@ function summary(stats_set,datas,val){
 
 	bar(stats_set,datas,val);
 	pushSparklines(window.stats_set, datas, window.min_year, val);
-	$('.widget_tahun').html(val);
 
+	if(typeof val != 'undefined'){
+		$('.widget_tahun').html(val);
+		$('.widget_tahun_prev').html(val-1);
+		$('.widget_tahun_aft').html(val+1);		
+	}
 }
