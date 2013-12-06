@@ -7,15 +7,15 @@
 	<head>
 		<title>Line Chart</title>
 		<meta name = "viewport" content = "initial-scale = 1, user-scalable = no">
-		<script src="js/Chart.js"></script>
-		<link rel="stylesheet" href="css/jquery-ui.css">
+		<script src="js/Chart.min.js"></script>
+		<link rel="stylesheet" href="css/jquery-ui.min.css">
     	<link href="css/kendo.dataviz.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/style.css">
-		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 		<script src="js/jquery.ui.touch-punch.min.js"></script>
-		<script src='js/include.js'></script>
     	<script src="js/kendo.dataviz.min.js"></script>
+		<script src='js/include.js'></script>
 	</head>
 	
 <body style="background-color: transparent;">
@@ -93,58 +93,76 @@
 			    </dl>
 			</div>
 
-	<div class="clear"></div>
+		<div class="clear"></div>
 
 		<div class="widget_title_s margin15">Perbezaan belia sebelum dan selepas tahun <span class="widget_tahun">2013</span></div>
+			<div class="clear splitter1 vseparator"></div>
 
-			<div class="col2 vseparator home">
-			    <dl class="col2">
-			        <dt class="grey50 widget_tahun_prev">2012</dt>
-			        <dd class="belia_diff_bfr_pcnt med up">40%</dd>
-			        <dd class="belia_diff_bfr small">198,060</dd>
-			    </dl>
-			    <dl class="col2">
-			        <dt class="grey50 widget_tahun_aft">2014</dt>
+			<div class="col2 home">
+			    <dl class="row right15 year_aft">
 			        <dd class="belia_diff_aft_pcnt med up">0%</dd>
+			        <dd class="hline right"></dd>
 			        <dd class="belia_diff_aft small">0</dd>
+					<div class="getYearAft hide hover">getYearAft Test</div>
+			    </dl>
+			    <dl class="row right15 year_now">
+			        <dd class="med" style="color: rgb(77, 163, 213);">100%</dd>
+			        <dd class="hline right"></dd>
+			        <dd class="belia_total small">176,900</dd>
+			    </dl>
+			    <dl class="row right15 year_bfr">
+			        <dd class="belia_diff_bfr_pcnt med up">40%</dd>
+			        <dd class="hline right"></dd>
+			        <dd class="belia_diff_bfr small">198,060</dd>
+					<div class="getYearBfr hide hover">getYearBfr Test</div>
 			    </dl>
 			</div>
+			<div class="year_timeline">
+			        <span class="grey50 med widget_tahun_aft">2014</span>
+			        <span class="grey50 large widget_tahun">2013</span>
+			        <span class="grey50 med widget_tahun_prev">2012</span>
+			</div>
 			<div class="col2 away">
-			    <dl class="col2">
-			        <dt class="grey50 widget_tahun_prev">2012</dt>
-			        <dd class="Bbelia_diff_bfr_pcnt med up">40%</dd>
-			        <dd class="Bbelia_diff_bfr small">198,060</dd>
-			    </dl>
-			    <dl class="col2">
-			        <dt class="grey50 widget_tahun_aft">2014</dt>
+			    <dl class="row left15 year_aft">
 			        <dd class="Bbelia_diff_aft_pcnt med up">0%</dd>
+			        <dd class="hline left"></dd>
 			        <dd class="Bbelia_diff_aft small">0</dd>
+			    </dl>
+			    <dl class="row left15 year_now">
+			        <dd class="med" style="color: rgb(77, 163, 213);">100%</dd>
+			        <dd class="hline left"></dd>
+			        <dd class="Bbelia_total small">176,900</dd>
+			    </dl>
+			    <dl class="row left15 year_bfr">
+			        <dd class="Bbelia_diff_bfr_pcnt med up">40%</dd>
+			        <dd class="hline left"></dd>
+			        <dd class="Bbelia_diff_bfr small">198,060</dd>
 			    </dl>
 			</div>
 
 	<div class="clear"></div>
+			<div class="clear splitter1 vseparator"></div>
 
 		<div class="widget_title_s margin15">Perbezaan belia di antara <span class="thisdistrict">Batu Pahat</span> dengan <span class="thatdistrict">Batu Pahat</span> tahun <span class="widget_tahun">2013</span></div>
 
-	<div class="clear splitter1 vseparator"></div>
-	<div class="clear splitter2 bottom15"></div>
+			<div class="clear splitter1 vseparator margin15"></div>
+			<div style="text-align:center;"><canvas id="Dpie" height="100px" width="100px"></canvas></div>
+			<div class="clear"></div>
 
-			<div class="col3 home_diff">
+			<div class="clear splitter1 vseparator top15"></div>
+			<div class="clear splitter2 bottom15"></div>
+
+			<div class="col2 home_diff">
 			    <dl class="">
 			        <dt class="grey50"><span class="thisdistrict">Batu Pahat</span></dt>
-			        <dd class="Dbelia_diff_pcnt med">40%</dd>
+			        <dd class="Dbelia_diff_pcnt large">40%</dd>
 			        <dd class="Dbelia_diff_total small">198,060</dd>
 			    </dl>
 			</div>
-			<div class="col3">
-				<dl class="">
-					<dd class=""><canvas id="pie" height="100px" width="100px"></canvas></dd>
-				</dl>
-			</div>
-			<div class="col3 away_diff">
+			<div class="col2 away_diff">
 			    <dl class="">
 			        <dt class="grey50"><span class="thatdistrict">Batu Pahat</span></dt>
-			        <dd class="Dbelia_diff_pcnt med">60%</dd>
+			        <dd class="Dbelia_diff_pcnt large">60%</dd>
 			        <dd class="Dbelia_diff_total small">198,060</dd>
 			    </dl>
 			</div>
@@ -153,6 +171,7 @@
 
 	</div>
 </div>
+
 
 <?php
 
@@ -227,6 +246,17 @@ $(function() {
 			// console.log(selected_year);
 		}
 	});
+
+	// $('.year_bfr').hover(function() {
+	// 		$('.getYearBfr').show();
+	// 	}, function() {
+	// 		$('.getYearBfr').hide();
+	// });
+	// $('.year_aft').hover(function() {
+	// 		$('.getYearAft').show();
+	// 	}, function() {
+	// 		$('.getYearAft').hide();
+	// });
 
 
 });

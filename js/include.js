@@ -87,7 +87,7 @@ function comparison(min, yearindex, dataset){
 	belia_diff_aft = window.belia_aft - belia_aft;
 	belia_diff_aft_pcnt = ((window.belia_aft/belia_aft) * 100)-100;
 
-	console.log('comparison',window.belia_bfr,belia_bfr);
+	// console.log('comparison',window.belia_bfr,belia_bfr);
 
 	loadDiffHome(penduduk,belia,belia_diff,belia_diff_pcnt,belia_diff_bfr,belia_diff_bfr_pcnt,belia_diff_aft,belia_diff_aft_pcnt);
 }
@@ -147,7 +147,7 @@ function calculate(min, yearindex, dataset){
 	];
 	pie(piedata, 'pie');
 
-	console.log('calculate',window.belia_bfr,belia_bfr);
+	// console.log('calculate',window.belia_bfr,belia_bfr);
 
 	loadDiffHome(penduduk,belia,belia_diff,belia_diff_pcnt,belia_diff_bfr,belia_diff_bfr_pcnt,belia_diff_aft,belia_diff_aft_pcnt);
 }
@@ -269,7 +269,6 @@ function pushSparklines(stats_set, getdata, min_year, year){
 
 	pie(piedata, 'cpie');
 
-
 	var belia_diff_pcnt = (Bbelia[index]/BPenduduk[index]) * 100;
 	var belia_diff_bfr_pcnt = ((Bbelia[index-1]/Bbelia[index]) * 100)-100;
 	var belia_diff_aft_pcnt = ((Bbelia[index+1]/Bbelia[index]) * 100)-100;
@@ -293,8 +292,15 @@ function pushSparklines(stats_set, getdata, min_year, year){
 	var home_pcnt = (home_total/(home_total + away_total)) * 100;
 	var away_pcnt = (away_total/(home_total + away_total)) * 100;
 
+	var Dpiedata = [
+		{value: away_total, color:"#103636"},
+		{value: home_total, color: "#108F97"}
+	];
 
-	console.log('away:',home_total,away_total,home_pcnt,away_pcnt);
+	pie(Dpiedata, 'Dpie');
+
+
+	// console.log('away:',home_total,away_total,home_pcnt,away_pcnt);
 
 	$(".home_diff .Dbelia_diff_total").text(output(home_total));
 	$(".away_diff .Dbelia_diff_total").text(output(away_total));
@@ -333,7 +339,6 @@ function sparklines(target, color, data){
 }
 
 function summary(stats_set,datas,val){
-
 	bar(stats_set,datas,val);
 	pushSparklines(window.stats_set, datas, window.min_year, val);
 
@@ -342,4 +347,12 @@ function summary(stats_set,datas,val){
 		$('.widget_tahun_prev').html(val-1);
 		$('.widget_tahun_aft').html(val+1);		
 	}
+}
+
+function getYearBfr(){
+	$('.getYearBfr').tooltip({ content: "Awesome title!" });
+}
+function getYearAft(){
+	$('.getYearAft').tooltip({ content: "Awesome title!" });
+
 }

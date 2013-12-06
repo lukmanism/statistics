@@ -174,8 +174,8 @@ h1, h2, h3, h4 {
 
 
 .up, .down {
-	background-position: right center;
-	background-repeat: no-repeat;
+	background-position: 62% center;
+    background-repeat: no-repeat;
 }
 .up {
 	color: #639514;
@@ -184,6 +184,7 @@ h1, h2, h3, h4 {
 .down {	
 	color: #CD151E;
 	background-image: url('../images/down.png');
+	text-indent: -20px;
 }
 
 
@@ -214,6 +215,7 @@ h1, h2, h3, h4 {
 .bar_summary {
 	width: 100%;
 	vertical-align: top;
+	position: relative;
 }
 .line_summary {
 	width: auto;
@@ -236,7 +238,7 @@ h1, h2, h3, h4 {
 .bar_summary dd,
 .bar_summary dt {
 	margin: 0;
-	clear: both;
+	/*clear: both;*/
 	margin-right: auto;
 	margin-left: auto;
 	font-weight: 600;
@@ -319,6 +321,11 @@ h1, h2, h3, h4 {
 .vseparator {
 	border-right: dashed 1px #B3BBC5;
 }
+.col1 {
+	width: 100%;
+	text-align: center;
+	float: left;
+}
 .col2 {
 	width: 49.5%;
 	text-align: center;
@@ -335,11 +342,23 @@ h1, h2, h3, h4 {
 	float: left;
 }
 
+.row {
+	clear: both;
+}
+
 .margin15 {
 	margin: 15px 0;
 }
 .top15 {
 	margin: 15px 0 0 0;
+}
+.right15 {
+	margin: 0 15px 0 0!important;
+	float: right;
+}
+.left15 {
+	margin: 0 0 0 15px!important;
+	float: left;
 }
 .bottom15 {
 	margin: 0 0 15px 0;
@@ -356,13 +375,18 @@ h1, h2, h3, h4 {
 	height: 15px;
 }
 .splitter2 {
-	width: 66%;
+	width: 50%;
 	margin-left: auto;
 	margin-right: auto;
 	height: 15px;
 	border-top: 1px dashed #B3BBC5;
 	border-left: 1px dashed #B3BBC5;
 	border-right: 1px dashed #B3BBC5;
+}
+.hline {
+	border-bottom: 1px dashed #808080;
+	height: 0px;
+	line-height: 0px;
 }
 .grey50 {
 	color: #838285;
@@ -399,7 +423,72 @@ h1, h2, h3, h4 {
 	text-align: left;
     line-height: inherit;
 }
-.home_diff .med,
-.away_diff .med {
-	color: #F7941D;
+.home_diff .large {
+	color: #108F97;
+}
+.away_diff .large {
+	color: #103636;
+}
+
+.hide {
+	display: none;
+}
+.year_bfr, .year_aft {
+	position: relative;
+}
+.hover {
+	position: absolute;
+	background-color: #ffffff;
+	width: 100px;
+	height: 40px;
+	bottom: 0;
+	left: 0;
+	-webkit-box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.75);
+	box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.75);
+}
+.year_timeline {
+	left: 40%;
+    margin-top: 4px;
+    position: absolute;
+    z-index: 99;
+}
+.year_timeline span {
+	background-color: #FFFFFF;
+    display: table;
+    height: 48px;
+    line-height: 48px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 12px 15px;
+}
+.home, .away {
+	position: relative;
+	padding-bottom: 2px;
+}
+
+.home dl,.away dl {
+    clear: both;
+    display: block;
+    margin: 15px 0px !important;	
+    width: 100%;
+}
+.home dt{}
+.home dd,
+.away dd {
+	display: table;
+    margin: 0;
+    width: 100%;
+}
+.home dd {
+}
+.away dd {
+}
+dd.hline {
+	clear: both;
+    width: 33%;
+}
+dd.hline.right {
+}
+dd.hline.left {
 }
