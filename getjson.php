@@ -10,13 +10,20 @@ if (mysqli_connect_errno($conn)) {
 
 @$d = ($_GET['d'])? cleanURI($_GET['d']) : '';
 @$s = ($_GET['s'])? cleanURI($_GET['s']) : '';
+@$Dt = ($_GET['Dt'])? cleanURI($_GET['Dt']) : '';
 
 
-$query = "WHERE ";
-$query .= ($d)? " district IN('$d') ORDER BY FIND_IN_SET(district,'".$_GET['d']."');":  " state IN('$s') ORDER BY FIND_IN_SET(state,'".$_GET['s']."');";
+$query = "SELECT * FROM belia a ";
+$query .= ($Dt)? " LEFT JOIN data b ON a.id = b.district_id LEFT JOIN data_cat c ON b.data_cat = c.id": "";
+$query .= " WHERE ";
+$query .= ($d)? " a.district IN('$d') ":  " a.state IN('$s') ";
+$query .= ($Dt)? " AND b.data_cat IN('$Dt') ":  "";
+$query .= ($d)? " ORDER BY FIND_IN_SET(a.district,'".$_GET['d']."') ": " ORDER BY FIND_IN_SET(a.state,'".$_GET['s']."') ";
 
+$query .= ";";
 
-$query 	= "SELECT * FROM belia ". $query;
+// echo $query;
+
 $result = mysqli_query($conn, $query);
 $json = '';
 
@@ -39,7 +46,10 @@ $json = '';
 
 	} else { // district set
 		while($row = mysqli_fetch_array($result)) {
-			$json .= '{"id":'.$row['id'].', "district": "'.$row['district'].'", "state": "'.$row['state'].'", "penduduk": ['.$row['penduduk'].'], "belia": ['.$row['belia'].']},';
+			$json .= '{"id":'.$row['id'].', "district": "'.$row['district'].'", "state": "'.$row['state'].'", "penduduk": ['.$row['penduduk'].'], "belia": ['.$row['belia'].']';
+
+			$json .= ($row['data'])?', "datas": {"name": "'.strtolower($row['name']).'", "data": ['.$row['data'].']}': '';
+			$json .= '},';
 		}
 	}
 	echo "[".rtrim($json, ",")."]";

@@ -22,44 +22,58 @@
 
 <div class="container">
 
-<div class="header">
-	<span class="bookmark"></span><h1 class="title"></h1>
-</div>
-
+	<div class="header">
+		<span class="bookmark"></span><h1 class="title"></h1>
+	</div>
 	<div class="clear"></div>
 
 	<div class="content">
-		<div class="widget_title_s margin15">Graf Belia vs. Penduduk</div>
+		<div class="widget_title top15">Graf Belia di <span class="title">Batu Pahat</span></div>
+		<div class="widget_title_s bottom15">Untuk Tahun <span class="widget_tahun">2013</span></div>
 		<canvas id="linechart" height="200" width="688"></canvas>
 		<div class="clear"></div>
-		<div id="slider"></div>
+
+		<div class="slider_outer">
+			<div class="slider_inner">
+				<ul class="marker">
+					<li>2008</li>
+					<li>2009</li>
+					<li>2010</li>
+					<li>2011</li>
+					<li>2012</li>
+					<li>2013</li>
+				</ul>
+				<div id="slider"></div>
+			</div>
+		</div>
+
+
 		<div class="clear"></div>
 
-		<div class="col2 legend margin15">
-			<dl class="col2">
+		<div class="col1 legend margin15">
+			<dl class="col3">
 				<dt class="grey50 left">Belia</dt>
 				<dd class="belia_total small left">198,060</dd>
 			</dl>
-			<dl class="col2">
+			<dl id="penduduk" class="col3 active tab">
 				<dt class="grey50 left">Penduduk</dt>
 				<dd class="pop_total small left">198,060</dd>
+			</dl>
+			<dl id="health" class="col3 inactive tab">
+				<dt class="grey50 left">Belia Sihat</dt>
+				<dd class="data_total small left">198,060</dd>
 			</dl>
 		</div>
 
 	</div>
-
-
-
 	<div class="clear"></div>
 
+<div class="summary"> <!-- START SUMMARY  -->
 	<div class="comparison">
-		<div class="widget_title top15">Perbandingan Antara Daerah</div>
-		<div class="widget_title_s">Untuk Tahun <span class="widget_tahun">2013</span></div>
+		<div class="widget_title top15">Belia Vs. Penduduk</div>
+		<div class="widget_title_s">Perbandingan Antara Daerah Untuk Tahun <span class="widget_tahun">2013</span></div>
 		<div class="bar top15" id="compare" ></div>
-
-
 	<div class="clear"></div>
-
 	<div class="widget_title_s margin15">Perbandingan di antara <span class="thisdistrict">Batu Pahat</span> dengan <span class="thatdistrict">Batu Pahat</span></div>
 	<div class="bar_summary">
 		<div class="widget_title bottom15"><span class="thisdistrict">Batu Pahat</span> vs. <span class="thatdistrict">Batu Pahat</span></div>
@@ -139,10 +153,8 @@
 			        <dd class="Bbelia_diff_bfr small">198,060</dd>
 			    </dl>
 			</div>
-
 	<div class="clear"></div>
-			<div class="clear splitter1 vseparator"></div>
-
+		<div class="clear splitter1 vseparator"></div>
 		<div class="widget_title_s margin15">Perbezaan belia di antara <span class="thisdistrict">Batu Pahat</span> dengan <span class="thatdistrict">Batu Pahat</span> tahun <span class="widget_tahun">2013</span></div>
 
 			<div class="clear splitter1 vseparator margin15"></div>
@@ -166,10 +178,11 @@
 			        <dd class="Dbelia_diff_total small">198,060</dd>
 			    </dl>
 			</div>
-
 	</div>
-
 	</div>
+</div> <!-- END SUMMARY  -->
+
+
 </div>
 
 
@@ -188,9 +201,11 @@
 		$scaleStepWidth = 100000;
 		$scaleStartValue = 100000;
 	}
-	// $param = '?'.$push.'='.$get;
-	$param = '?d=batu pahat,kluang,perlis,muar,tangkak,Pasir Mas,Kota Setar';
-	$getYear = ($_GET['y'])? $_GET['y']: '';
+	$Dt = ($_GET['Dt'])? '&Dt='.$_GET['Dt']: '';
+	$url = 'getjson.php?'.$push.'=';
+	$uri = $get.$Dt;
+	// $param = '?d=batu pahat,kluang,perlis,muar,tangkak,Pasir Mas,Kota Setar';
+	// $getYear = ($_GET['y'])? $_GET['y']: '';
 ?>
 
 <script>
@@ -201,9 +216,11 @@ $(function() {
 	var loaddata;
 	var datas = [];
 
+	window.url = '<?php echo $url; ?>';
+
 	$.ajax({
 			async: false,
-			url: "getjson.php<?php echo $param; ?>",
+			url: window.url+"<?php echo $uri; ?>",
 			beforeSend: function(xhr) {}
 		}).done(function(data) {
 			loaddata = data;
@@ -213,14 +230,14 @@ $(function() {
 
 	// construct data from json
 	$.each(loaddata, function(key, val){
-		datas[key]= [{data: val.penduduk}, {data: val.belia}, {district: val.district}, {state: val.state}];
+		datas[key]= [{data: val.penduduk}, {data: val.belia}, {district: val.district}, {state: val.state}, {datas: val.datas}];
 	});
 
-	var district = (datas[0][2]['district'])? datas[0][2]['district']: '';
-	$('.title').text(district + ', ' + datas[0][3]['state']);
-
-	$('.thisdistrict').text(district);
-	$('.thatdistrict').text(district);
+	var main_title = (datas[0][2]['district'])? datas[0][2]['district'] + ', ' + datas[0][3]['state']: datas[0][3]['state'];
+	var title = (datas[0][2]['district'])? datas[0][2]['district'] : datas[0][3]['state'];
+	$('.title').text(main_title);
+	$('.thisdistrict').text(title);
+	$('.thatdistrict').text(title);
 
 
 	var getYear = [<?php echo $getYear; ?>];
@@ -247,6 +264,22 @@ $(function() {
 		}
 	});
 
+	$('.tab').click(function(){
+		var id = $(this).attr('id');
+		var year = (typeof window.selected_year != 'undefined')? window.selected_year: window.year;
+
+		$('.tab').removeClass('active').addClass('inactive');
+		$(this).removeClass('inactive').addClass('active');
+
+
+		calculate(min_year, year, window.slideval);
+		summary(stats_set,datas,year);
+
+
+		console.log(id);
+	});
+
+
 	// $('.year_bfr').hover(function() {
 	// 		$('.getYearBfr').show();
 	// 	}, function() {
@@ -258,6 +291,22 @@ $(function() {
 	// 		$('.getYearAft').hide();
 	// });
 
+	$(window).bind('scroll', function() {
+		var scrollval = $(window).scrollTop();
+		var slider = $('.slider_inner');
+		var marker = $('.marker');
+         if (scrollval < 289) {
+            slider.removeClass('fixed').show();
+            marker.hide();
+         } else if(scrollval > 289){
+            slider.addClass('fixed').show();
+            marker.css("display","table");
+         } else {
+            slider.hide();
+            marker.hide();
+         }
+         // console.log(scrollval);
+    });
 
 });
 

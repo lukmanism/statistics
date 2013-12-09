@@ -11,7 +11,7 @@ h1, h2, h3, h4 {
 	font-family: helvetica;
 	color: #454447;
 }
-.title {
+h1.title {
 	font-size: 1em;
 	padding: 0 0 0 12px;
 	margin: 0px;
@@ -48,6 +48,32 @@ h1, h2, h3, h4 {
 }
 #linechart {
 }
+.slider_outer {
+	height: 42px;
+	background-color: #ffffff;
+	width: 100%;
+	position: relative;
+}
+.slider_inner {
+	background-color: #ffffff;
+	height: 42px;
+	width: 688px;
+	position: static;
+}
+.slider_inner.fixed {
+	height: 85px;
+	padding-top: 15px;
+	position: fixed;
+	top: 0;
+	z-index: 999;
+    -moz-box-shadow: -1px -1px 9px #000000;
+    -webkit-box-shadow: -1px -1px 9px #000000;
+    box-shadow: -1px -1px 9px #000000;    
+    width: 712px;
+    padding-right: 68px;
+    left: 0;
+    opacity: 0.9;
+}
 #slider {
 	background-color: #F7941D;
     background-image: none;
@@ -58,7 +84,6 @@ h1, h2, h3, h4 {
     margin-top: 22px;
     width: 605px;
 }
-
 .ui-slider .ui-slider-handle{
 	width:32px;
 	height:42px;
@@ -302,7 +327,8 @@ h1, h2, h3, h4 {
 	font-weight: 600;
 	text-transform: uppercase;
 }
-.widget_title span{
+.widget_title span.thisdistrict,
+.widget_title span.thatdistrict {
 	display: inline-block;
 	width: 47%;
 	text-align: center;
@@ -315,11 +341,11 @@ h1, h2, h3, h4 {
 }
 .separator {
 	margin-top: 20px;
-    background: none repeat scroll 0 0 #B3BBC5;
+    background: none repeat scroll 0 0 #F7941D;
     height: 1px;
 }
 .vseparator {
-	border-right: dashed 1px #B3BBC5;
+	border-right: dashed 1px #F7941D;
 }
 .col1 {
 	width: 100%;
@@ -379,12 +405,12 @@ h1, h2, h3, h4 {
 	margin-left: auto;
 	margin-right: auto;
 	height: 15px;
-	border-top: 1px dashed #B3BBC5;
-	border-left: 1px dashed #B3BBC5;
-	border-right: 1px dashed #B3BBC5;
+	border-top: 1px dashed #F7941D;
+	border-left: 1px dashed #F7941D;
+	border-right: 1px dashed #F7941D;
 }
 .hline {
-	border-bottom: 1px dashed #808080;
+	border-bottom: 1px dashed #F7941D;
 	height: 0px;
 	line-height: 0px;
 }
@@ -409,6 +435,11 @@ h1, h2, h3, h4 {
 	border-bottom: solid 4px #4DA3D5;}
 .legend dl:nth-child(2) {
 	border-bottom: solid 4px #1C638D;
+}
+.legend dl:nth-child(3) {
+	border-bottom: solid 4px #9FEE00;
+}
+.legend dl.active {
 }
 .legend dt {
 	font-size: 0.66em;
@@ -491,4 +522,24 @@ dd.hline {
 dd.hline.right {
 }
 dd.hline.left {
+}
+
+.marker {
+	display: table;
+    margin: 0 0 15px 75px;
+    padding: 0;
+    width: 730px;
+}
+.marker li {
+	display: table-cell;
+    font-size: 0.7em;
+}
+.marker {
+	display: none;
+}
+.inactive {
+	opacity: .3;
+}
+.active {
+	opacity: 1;
 }

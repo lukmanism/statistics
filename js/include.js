@@ -62,6 +62,13 @@ function linechart(datas){
 				pointStrokeColor : "#454447",
 				data : datas[0][1]['data']
 			}
+			,{
+				fillColor : "#9FEE00",
+				strokeColor : "#454447",
+				pointColor : "#ffffff",
+				pointStrokeColor : "#454447",
+				data : datas[0][4]['datas']['data']
+			}
 		]			
 	}
 	var myLine = new Chart(document.getElementById("linechart").getContext("2d")).Line(lineChartData,options);
@@ -92,9 +99,10 @@ function comparison(min, yearindex, dataset){
 	loadDiffHome(penduduk,belia,belia_diff,belia_diff_pcnt,belia_diff_bfr,belia_diff_bfr_pcnt,belia_diff_aft,belia_diff_aft_pcnt);
 }
 
-function loadDiffHome(penduduk,belia,belia_diff,belia_diff_pcnt,belia_diff_bfr,belia_diff_bfr_pcnt,belia_diff_aft,belia_diff_aft_pcnt){
+function loadDiffHome(penduduk,belia,belia_diff,belia_diff_pcnt,belia_diff_bfr,belia_diff_bfr_pcnt,belia_diff_aft,belia_diff_aft_pcnt,beliasihat){
 	$(".belia_total").text(output(belia,0));
 	$(".pop_total").text(output(penduduk,0));
+	$(".data_total").text(output(beliasihat,0));
 	$(".belia_pcnt").text(output(belia_diff_pcnt,0)+'%');
 	$(".pop_pcnt").text(output((100 - belia_diff_pcnt),0)+'%');
 
@@ -128,6 +136,7 @@ function calculate(min, yearindex, dataset){
 	var penduduk, penduduk_bfr, penduduk_aft, belia_diff, belia_diff_pcnt, belia_diff_bfr, belia_diff_bfr_pcnt, belia_diff_aft, belia_diff_aft_pcnt;
 
 	penduduk = dataset[0]['data'][index];
+	beliasihat = dataset[2]['data'][index];
 	penduduk_bfr = dataset[0]['data'][index-1];
 	penduduk_aft = dataset[0]['data'][index+1];
 	window.belia = dataset[1]['data'][index];
@@ -136,8 +145,8 @@ function calculate(min, yearindex, dataset){
 
 	belia_diff = penduduk - belia;
 	belia_diff_pcnt = (belia/penduduk) * 100;
-	belia_diff_bfr = belia_bfr - belia;
-	belia_diff_bfr_pcnt = ((belia_bfr/belia) * 100)-100;
+	belia_diff_bfr = belia - belia_bfr;
+	belia_diff_bfr_pcnt = ((belia/belia_bfr) * 100)-100;
 	belia_diff_aft = belia_aft - belia;
 	belia_diff_aft_pcnt = ((belia_aft/belia) * 100)-100;
 
@@ -147,9 +156,7 @@ function calculate(min, yearindex, dataset){
 	];
 	pie(piedata, 'pie');
 
-	// console.log('calculate',window.belia_bfr,belia_bfr);
-
-	loadDiffHome(penduduk,belia,belia_diff,belia_diff_pcnt,belia_diff_bfr,belia_diff_bfr_pcnt,belia_diff_aft,belia_diff_aft_pcnt);
+	loadDiffHome(penduduk,belia,belia_diff,belia_diff_pcnt,belia_diff_bfr,belia_diff_bfr_pcnt,belia_diff_aft,belia_diff_aft_pcnt,beliasihat);
 }
 
 function output(number, dec)	{
@@ -169,6 +176,7 @@ function bar(stats_set,datas,year){
 	var cat = Array();
 	var Bbelia = Array();
 	var Bpenduduk = Array();
+	var Bsihat = Array();
 	var index = (year)? ((year-min_year)): (stats_set-1);
 	var bardata = Array();
 
@@ -176,6 +184,7 @@ function bar(stats_set,datas,year){
 		cat.push((datas[i][2]['district'])? datas[i][2]['district'] : datas[i][3]['state']);
 		Bbelia.push(datas[i][1]['data'][index]);
 		Bpenduduk.push(datas[i][0]['data'][index]);
+		Bsihat.push(datas[i][4]['datas']['data'][index]);
 	};
 
 	$("#compare").kendoChart({
@@ -239,7 +248,7 @@ function setSparklines(getData){
 	window.pushdatas = [];
 	$.ajax({
 			async: false,
-			url: "getjson.php?d="+getData,
+			url: window.url+getData,
 			beforeSend: function(xhr) {}
 		}).done(function(data) {
 			pushdata = data;
@@ -269,12 +278,13 @@ function pushSparklines(stats_set, getdata, min_year, year){
 
 	pie(piedata, 'cpie');
 
-	var belia_diff_pcnt = (Bbelia[index]/BPenduduk[index]) * 100;
-	var belia_diff_bfr_pcnt = ((Bbelia[index-1]/Bbelia[index]) * 100)-100;
+	var belia_diff_bfr = (Bbelia[index]-Bbelia[index-1]);
+	var belia_diff_aft = (Bbelia[index+1]-Bbelia[index]);
+	var belia_diff_bfr_pcnt = ((Bbelia[index]/Bbelia[index-1]) * 100)-100;
 	var belia_diff_aft_pcnt = ((Bbelia[index+1]/Bbelia[index]) * 100)-100;
 
-	var belia_diff_bfr = (Bbelia[index-1]-Bbelia[index]);
-	var belia_diff_aft = (Bbelia[index+1]-Bbelia[index]);
+	var belia_diff_pcnt = (Bbelia[index]/BPenduduk[index]) * 100;
+
 
 	$(".Bbelia_total").text(output(Bbelia[index]));
 	$(".Bpop_total").text(output(BPenduduk[index]));
