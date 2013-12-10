@@ -184,7 +184,7 @@ h1.title {
 }
 
 
-.summary .belia_diff{
+.summary .a_diff{
 	background-image: url('../images/diff.png');
 }
 .summary .pcnt{
@@ -209,7 +209,7 @@ h1.title {
 .down {	
 	color: #CD151E;
 	background-image: url('../images/down.png');
-	text-indent: -20px;
+	text-indent: -8px;
 }
 
 

@@ -62,6 +62,13 @@ function linechart(datas){
 				pointStrokeColor : "#454447",
 				data : datas[0][1]['data']
 			}
+			,{
+				fillColor : "#9FEE00",
+				strokeColor : "#454447",
+				pointColor : "#ffffff",
+				pointStrokeColor : "#454447",
+				data : datas[0][4]['datas']['data']
+			}
 		]			
 	}
 	var myLine = new Chart(document.getElementById("linechart").getContext("2d")).Line(lineChartData,options);
@@ -71,83 +78,87 @@ function linechart(datas){
 function comparison(min, yearindex, dataset){
 	var index = yearindex - min;
 
-	var penduduk, penduduk_bfr, penduduk_aft, belia, belia_bfr, belia_aft, belia_diff, belia_diff_pcnt, belia_diff_bfr, belia_diff_bfr_pcnt, belia_diff_aft, belia_diff_aft_pcnt;
+	var penduduk, b_bfr, b_aft, belia, a_bfr, a_aft, a_diff, a_diff_pcnt, a_diff_bfr, a_diff_bfr_pcnt, a_diff_aft, a_diff_aft_pcnt;
 
 	penduduk = dataset[0]['data'][index];
-	penduduk_bfr = dataset[0]['data'][index-1];
-	penduduk_aft = dataset[0]['data'][index+1];
+	b_bfr = dataset[0]['data'][index-1];
+	b_aft = dataset[0]['data'][index+1];
 	belia = dataset[1]['data'][index];
-	belia_bfr = dataset[1]['data'][index-1];
-	belia_aft = dataset[1]['data'][index+1];
+	a_bfr = dataset[1]['data'][index-1];
+	a_aft = dataset[1]['data'][index+1];
 
-	belia_diff = window.belia - belia;
-	belia_diff_pcnt = ((window.belia/belia) * 100)-100;
-	belia_diff_bfr = window.belia_bfr - belia_bfr;
-	belia_diff_bfr_pcnt = ((window.belia_bfr/belia_bfr) * 100)-100;
-	belia_diff_aft = window.belia_aft - belia_aft;
-	belia_diff_aft_pcnt = ((window.belia_aft/belia_aft) * 100)-100;
+	a_diff = window.belia - belia;
+	a_diff_pcnt = ((window.belia/belia) * 100)-100;
+	a_diff_bfr = window.a_bfr - a_bfr;
+	a_diff_bfr_pcnt = ((window.a_bfr/a_bfr) * 100)-100;
+	a_diff_aft = window.a_aft - a_aft;
+	a_diff_aft_pcnt = ((window.a_aft/a_aft) * 100)-100;
 
-	// console.log('comparison',window.belia_bfr,belia_bfr);
+	// console.log('comparison',window.a_bfr,a_bfr);
 
-	loadDiffHome(penduduk,belia,belia_diff,belia_diff_pcnt,belia_diff_bfr,belia_diff_bfr_pcnt,belia_diff_aft,belia_diff_aft_pcnt);
+	loadDiffHome(penduduk,belia,a_diff,a_diff_pcnt,a_diff_bfr,a_diff_bfr_pcnt,a_diff_aft,a_diff_aft_pcnt);
 }
 
-function loadDiffHome(penduduk,belia,belia_diff,belia_diff_pcnt,belia_diff_bfr,belia_diff_bfr_pcnt,belia_diff_aft,belia_diff_aft_pcnt){
-	$(".belia_total").text(output(belia,0));
-	$(".pop_total").text(output(penduduk,0));
-	$(".belia_pcnt").text(output(belia_diff_pcnt,0)+'%');
-	$(".pop_pcnt").text(output((100 - belia_diff_pcnt),0)+'%');
+function loadDiffHome(penduduk,belia,a_diff,a_diff_pcnt,a_diff_bfr,a_diff_bfr_pcnt,a_diff_aft,a_diff_aft_pcnt,c){
+	$(".a_total").text(output(belia,0));
+	$(".b_total").text(output(penduduk,0));
+	$(".data_total").text(output(c,0));
+	$(".a_pcnt").text(output(a_diff_pcnt,0)+'%');
+	$(".b_pcnt").text(output((100 - a_diff_pcnt),0)+'%');
 
-	$(".belia_diff").text(output(belia_diff,0));
-	$(".belia_diff_pcnt").text(output(belia_diff_pcnt,0)+'%');
+	$(".a_diff").text(output(a_diff,0));
+	$(".a_diff_pcnt").text(output(a_diff_pcnt,0)+'%');
 
-	$(".belia_diff_bfr").text(output(belia_diff_bfr,0));
-	$(".belia_diff_bfr_pcnt").text(output(belia_diff_bfr_pcnt,0)+'%');
+	$(".a_diff_bfr").text(output(a_diff_bfr,0));
+	$(".a_diff_bfr_pcnt").text(output(a_diff_bfr_pcnt,0)+'%');
 
-	$(".belia_diff_aft").text(output(belia_diff_aft,0));
-	$(".belia_diff_aft_pcnt").text(output(belia_diff_aft_pcnt,0)+'%');
+	$(".a_diff_aft").text(output(a_diff_aft,0));
+	$(".a_diff_aft_pcnt").text(output(a_diff_aft_pcnt,0)+'%');
 
-	if(belia_diff_bfr < 0){
-		$('.home .belia_diff_bfr_pcnt').removeClass('up').addClass('down');
+	if(a_diff_bfr < 0){
+		$('.home .a_diff_bfr_pcnt').removeClass('up').addClass('down');
 	} else {
-		$('.home .belia_diff_bfr_pcnt').removeClass('down').addClass('up');
+		$('.home .a_diff_bfr_pcnt').removeClass('down').addClass('up');
 	}
-	if(belia_diff_aft < 0){
-		$('.home .belia_diff_aft_pcnt').removeClass('up').addClass('down');
+	if(a_diff_aft < 0){
+		$('.home .a_diff_aft_pcnt').removeClass('up').addClass('down');
 	} else {
-		$('.home .belia_diff_aft_pcnt').removeClass('down').addClass('up');
+		$('.home .a_diff_aft_pcnt').removeClass('down').addClass('up');
 	}	
 }
 
 
 
 
-function calculate(min, yearindex, dataset){
+function calculate(min, yearindex, dataset, set, color){
 	var index = yearindex - min;
+	var getset = (typeof set != 'undefined')? set : 0;
+	var getcolor = (typeof color != 'undefined')? color : "#1c638d";
 
-	var penduduk, penduduk_bfr, penduduk_aft, belia_diff, belia_diff_pcnt, belia_diff_bfr, belia_diff_bfr_pcnt, belia_diff_aft, belia_diff_aft_pcnt;
+	var penduduk, b_bfr, b_aft, a_diff, a_diff_pcnt, a_diff_bfr, a_diff_bfr_pcnt, a_diff_aft, a_diff_aft_pcnt;
 
 	penduduk = dataset[0]['data'][index];
-	penduduk_bfr = dataset[0]['data'][index-1];
-	penduduk_aft = dataset[0]['data'][index+1];
+	var c = dataset[2]['data'][index];
+	b_bfr = dataset[0]['data'][index-1];
+	b_aft = dataset[0]['data'][index+1];
 	window.belia = dataset[1]['data'][index];
-	window.belia_bfr = dataset[1]['data'][index-1];
-	window.belia_aft = dataset[1]['data'][index+1];
+	window.a_bfr = dataset[1]['data'][index-1];
+	window.a_aft = dataset[1]['data'][index+1];
 
-	belia_diff = penduduk - belia;
-	belia_diff_pcnt = (belia/penduduk) * 100;
-	belia_diff_bfr = belia - belia_bfr;
-	belia_diff_bfr_pcnt = ((belia/belia_bfr) * 100)-100;
-	belia_diff_aft = belia_aft - belia;
-	belia_diff_aft_pcnt = ((belia_aft/belia) * 100)-100;
+	a_diff = penduduk - belia;
+	a_diff_pcnt = (belia/penduduk) * 100;
+	a_diff_bfr = belia - a_bfr;
+	a_diff_bfr_pcnt = ((belia/a_bfr) * 100)-100;
+	a_diff_aft = a_aft - belia;
+	a_diff_aft_pcnt = ((a_aft/belia) * 100)-100;
 
 	var piedata = [
-		{value: belia_diff, color: "#1c638d"},
-		{value: belia, color:"#4DA3D5"}
+		{value: a_diff, color: getcolor},
+		{value: belia, color: "#4DA3D5"}
 	];
 	pie(piedata, 'pie');
 
-	loadDiffHome(penduduk,belia,belia_diff,belia_diff_pcnt,belia_diff_bfr,belia_diff_bfr_pcnt,belia_diff_aft,belia_diff_aft_pcnt);
+	loadDiffHome(penduduk,belia,a_diff,a_diff_pcnt,a_diff_bfr,a_diff_bfr_pcnt,a_diff_aft,a_diff_aft_pcnt,c);
 }
 
 function output(number, dec)	{
@@ -163,17 +174,19 @@ function output(number, dec)	{
     return x1 + x2;
 }
 
-function bar(stats_set,datas,year){
+function bar(stats_set,datas,year, color){
+	var getcolor = (typeof color != 'undefined')? color : "#1c638d";
 	var cat = Array();
-	var Bbelia = Array();
-	var Bpenduduk = Array();
+	var Ba = Array();
+	var Bb = Array();
 	var index = (year)? ((year-min_year)): (stats_set-1);
 	var bardata = Array();
 
 	for (var i = 0; i < stats_set; i++) {
 		cat.push((datas[i][2]['district'])? datas[i][2]['district'] : datas[i][3]['state']);
-		Bbelia.push(datas[i][1]['data'][index]);
-		Bpenduduk.push(datas[i][0]['data'][index]);
+		Ba.push(datas[i][1]['data'][index]);
+		Bb.push(datas[i][0]['data'][index]);
+		// datas[i][4]['datas']['data'][index]
 	};
 
 	$("#compare").kendoChart({
@@ -196,12 +209,12 @@ function bar(stats_set,datas,year){
 		},
 		series: [{
 		    name: "Belia",
-		    data: Bbelia,
+		    data: Ba,
 	        color: "#4DA3D5"
 		}, {
 	        name: "Penduduk",
-	        data: Bpenduduk,
-	        color: "#1C638D"
+	        data: Bb,
+	        color: getcolor
 	    }],
 		valueAxis: {
 		    max: 140000,
@@ -253,41 +266,41 @@ function setSparklines(getData){
 
 function pushSparklines(stats_set, getdata, min_year, year){
 	var thisdata = (typeof window.pushdatas == 'undefined')? getdata : window.pushdatas;
-	var Bbelia = thisdata[0][1]['data'];
-	var BPenduduk = thisdata[0][0]['data'];
+	var Ba = thisdata[0][1]['data'];
+	var Bb = thisdata[0][0]['data'];
 	var index = (year)? ((year-min_year)): (stats_set-1);
 
-	sparklines('.PSpark','#1C638D', Bbelia);
-	sparklines('.BSpark','#4DA3D5', BPenduduk);
+	sparklines('.PSpark','#1C638D', Ba);
+	sparklines('.BSpark','#4DA3D5', Bb);
 
 	var piedata = [
-		{value: (BPenduduk[index]-Bbelia[index]), color: "#1c638d"},
-		{value: Bbelia[index], color:"#4DA3D5"}
+		{value: (Bb[index]-Ba[index]), color: "#1c638d"},
+		{value: Ba[index], color:"#4DA3D5"}
 	];
 
 	pie(piedata, 'cpie');
 
-	var belia_diff_bfr = (Bbelia[index]-Bbelia[index-1]);
-	var belia_diff_aft = (Bbelia[index+1]-Bbelia[index]);
-	var belia_diff_bfr_pcnt = ((Bbelia[index]/Bbelia[index-1]) * 100)-100;
-	var belia_diff_aft_pcnt = ((Bbelia[index+1]/Bbelia[index]) * 100)-100;
+	var a_diff_bfr = (Ba[index]-Ba[index-1]);
+	var a_diff_aft = (Ba[index+1]-Ba[index]);
+	var a_diff_bfr_pcnt = ((Ba[index]/Ba[index-1]) * 100)-100;
+	var a_diff_aft_pcnt = ((Ba[index+1]/Ba[index]) * 100)-100;
 
-	var belia_diff_pcnt = (Bbelia[index]/BPenduduk[index]) * 100;
+	var a_diff_pcnt = (Ba[index]/Bb[index]) * 100;
 
 
-	$(".Bbelia_total").text(output(Bbelia[index]));
-	$(".Bpop_total").text(output(BPenduduk[index]));
-	$(".Bbelia_pcnt").text(output(belia_diff_pcnt,0)+'%');
-	$(".Bpop_pcnt").text(output((100 - belia_diff_pcnt),0)+'%');
+	$(".Ba_total").text(output(Ba[index]));
+	$(".Bb_total").text(output(Bb[index]));
+	$(".Ba_pcnt").text(output(a_diff_pcnt,0)+'%');
+	$(".Bb_pcnt").text(output((100 - a_diff_pcnt),0)+'%');
 
-	$(".Bbelia_diff_bfr").text(output(belia_diff_bfr));
-	$(".Bbelia_diff_aft").text(output(belia_diff_aft));
-	$(".Bbelia_diff_bfr_pcnt").text(output(belia_diff_bfr_pcnt)+'%');
-	$(".Bbelia_diff_aft_pcnt").text(output(belia_diff_aft_pcnt)+'%');
+	$(".Ba_diff_bfr").text(output(a_diff_bfr));
+	$(".Ba_diff_aft").text(output(a_diff_aft));
+	$(".Ba_diff_bfr_pcnt").text(output(a_diff_bfr_pcnt)+'%');
+	$(".Ba_diff_aft_pcnt").text(output(a_diff_aft_pcnt)+'%');
 
 
 	var home_total = window.belia;
-	var away_total = Bbelia[index];
+	var away_total = Ba[index];
 	var home_pcnt = (home_total/(home_total + away_total)) * 100;
 	var away_pcnt = (away_total/(home_total + away_total)) * 100;
 
@@ -301,20 +314,20 @@ function pushSparklines(stats_set, getdata, min_year, year){
 
 	// console.log('away:',home_total,away_total,home_pcnt,away_pcnt);
 
-	$(".home_diff .Dbelia_diff_total").text(output(home_total));
-	$(".away_diff .Dbelia_diff_total").text(output(away_total));
-	$(".home_diff .Dbelia_diff_pcnt").text(output(home_pcnt)+'%');
-	$(".away_diff .Dbelia_diff_pcnt").text(output(away_pcnt)+'%');
+	$(".home_diff .Da_diff_total").text(output(home_total));
+	$(".away_diff .Da_diff_total").text(output(away_total));
+	$(".home_diff .Da_diff_pcnt").text(output(home_pcnt)+'%');
+	$(".away_diff .Da_diff_pcnt").text(output(away_pcnt)+'%');
 
-	if(belia_diff_bfr < 0){
-		$('.away .Bbelia_diff_bfr_pcnt').removeClass('up').addClass('down');
+	if(a_diff_bfr < 0){
+		$('.away .Ba_diff_bfr_pcnt').removeClass('up').addClass('down');
 	} else {
-		$('.away .Bbelia_diff_bfr_pcnt').removeClass('down').addClass('up');
+		$('.away .Ba_diff_bfr_pcnt').removeClass('down').addClass('up');
 	}
-	if(belia_diff_aft < 0){
-		$('.away .Bbelia_diff_aft_pcnt').removeClass('up').addClass('down');
+	if(a_diff_aft < 0){
+		$('.away .Ba_diff_aft_pcnt').removeClass('up').addClass('down');
 	} else {
-		$('.away .Bbelia_diff_aft_pcnt').removeClass('down').addClass('up');
+		$('.away .Ba_diff_aft_pcnt').removeClass('down').addClass('up');
 	}	
 }
 
@@ -338,7 +351,7 @@ function sparklines(target, color, data){
 }
 
 function summary(stats_set,datas,val){
-	bar(stats_set,datas,val);
+	bar(stats_set,datas,val,'#9FEE00');
 	pushSparklines(window.stats_set, datas, window.min_year, val);
 
 	if(typeof val != 'undefined'){

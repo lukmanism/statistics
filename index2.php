@@ -15,7 +15,7 @@
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 		<script src="js/jquery.ui.touch-punch.min.js"></script>
     	<script src="js/kendo.dataviz.min.js"></script>
-		<script src='js/include.js'></script>
+		<script src='js/include2.js'></script>
 	</head>
 	
 <body style="background-color: transparent;">
@@ -50,21 +50,25 @@
 
 		<div class="clear"></div>
 
-		<div class="col2 legend margin15">
-			<dl class="col2">
+		<div class="col1 legend margin15">
+			<dl class="col3">
 				<dt class="grey50 left">Belia</dt>
-				<dd class="belia_total small left">198,060</dd>
+				<dd class="a_total small left">198,060</dd>
 			</dl>
-			<dl class="col2 active">
+			<dl id="penduduk" class="col3 active tab">
 				<dt class="grey50 left">Penduduk</dt>
-				<dd class="pop_total small left">198,060</dd>
+				<dd class="b_total small left">198,060</dd>
+			</dl>
+			<dl id="health" class="col3 inactive tab">
+				<dt class="grey50 left">Belia Sihat</dt>
+				<dd class="data_total small left">198,060</dd>
 			</dl>
 		</div>
 
 	</div>
 	<div class="clear"></div>
 
-
+<div class="summary"> <!-- START SUMMARY  -->
 	<div class="comparison">
 		<div class="widget_title top15">Belia Vs. Penduduk</div>
 		<div class="widget_title_s">Perbandingan Antara Daerah Untuk Tahun <span class="widget_tahun">2013</span></div>
@@ -79,13 +83,13 @@
 				<div class="clear"></div>
 			    <dl class="col2">
 			        <dt class="grey50">Perbezaan Belia</dt>
-			        <dd class="belia_pcnt large">48%</dd>
-			        <dd class="belia_total small"></dd>
+			        <dd class="a_pcnt large">48%</dd>
+			        <dd class="a_total small"></dd>
 			    </dl>
 			    <dl class="col2">
 			        <dt class="grey50">Perbezaan Penduduk</dt>
-			        <dd class="pop_pcnt large">48%</dd>
-			        <dd class="pop_total small"></dd>
+			        <dd class="b_pcnt large">48%</dd>
+			        <dd class="b_total small"></dd>
 			    </dl>
 			</div>
 			<div class="col2">
@@ -93,13 +97,13 @@
 				<div class="clear"></div>
 			    <dl class="col2">
 			        <dt class="grey50">Perbezaan Belia</dt>
-			        <dd class="Bbelia_pcnt large">48%</dd>
-			        <dd class="Bbelia_total small"></dd>
+			        <dd class="Ba_pcnt large">48%</dd>
+			        <dd class="Ba_total small"></dd>
 			    </dl>
 			    <dl class="col2">
 			        <dt class="grey50">Perbezaan Penduduk</dt>
-			        <dd class="Bpop_pcnt large">48%</dd>
-			        <dd class="Bpop_total small"></dd>
+			        <dd class="Bb_pcnt large">48%</dd>
+			        <dd class="Bb_total small"></dd>
 			    </dl>
 			</div>
 
@@ -110,20 +114,20 @@
 
 			<div class="col2 home">
 			    <dl class="row right15 year_aft">
-			        <dd class="belia_diff_aft_pcnt med up">0%</dd>
+			        <dd class="a_diff_aft_pcnt med up">0%</dd>
 			        <dd class="hline right"></dd>
-			        <dd class="belia_diff_aft small">0</dd>
+			        <dd class="a_diff_aft small">0</dd>
 					<div class="getYearAft hide hover">getYearAft Test</div>
 			    </dl>
 			    <dl class="row right15 year_now">
 			        <dd class="med" style="color: rgb(77, 163, 213);">100%</dd>
 			        <dd class="hline right"></dd>
-			        <dd class="belia_total small">176,900</dd>
+			        <dd class="a_total small">176,900</dd>
 			    </dl>
 			    <dl class="row right15 year_bfr">
-			        <dd class="belia_diff_bfr_pcnt med up">40%</dd>
+			        <dd class="a_diff_bfr_pcnt med up">40%</dd>
 			        <dd class="hline right"></dd>
-			        <dd class="belia_diff_bfr small">198,060</dd>
+			        <dd class="a_diff_bfr small">198,060</dd>
 					<div class="getYearBfr hide hover">getYearBfr Test</div>
 			    </dl>
 			</div>
@@ -134,19 +138,19 @@
 			</div>
 			<div class="col2 away">
 			    <dl class="row left15 year_aft">
-			        <dd class="Bbelia_diff_aft_pcnt med up">0%</dd>
+			        <dd class="Ba_diff_aft_pcnt med up">0%</dd>
 			        <dd class="hline left"></dd>
-			        <dd class="Bbelia_diff_aft small">0</dd>
+			        <dd class="Ba_diff_aft small">0</dd>
 			    </dl>
 			    <dl class="row left15 year_now">
 			        <dd class="med" style="color: rgb(77, 163, 213);">100%</dd>
 			        <dd class="hline left"></dd>
-			        <dd class="Bbelia_total small">176,900</dd>
+			        <dd class="Ba_total small">176,900</dd>
 			    </dl>
 			    <dl class="row left15 year_bfr">
-			        <dd class="Bbelia_diff_bfr_pcnt med up">40%</dd>
+			        <dd class="Ba_diff_bfr_pcnt med up">40%</dd>
 			        <dd class="hline left"></dd>
-			        <dd class="Bbelia_diff_bfr small">198,060</dd>
+			        <dd class="Ba_diff_bfr small">198,060</dd>
 			    </dl>
 			</div>
 	<div class="clear"></div>
@@ -163,19 +167,20 @@
 			<div class="col2 home_diff">
 			    <dl class="">
 			        <dt class="grey50"><span class="thisdistrict">Batu Pahat</span></dt>
-			        <dd class="Dbelia_diff_pcnt large">40%</dd>
-			        <dd class="Dbelia_diff_total small">198,060</dd>
+			        <dd class="Da_diff_pcnt large">40%</dd>
+			        <dd class="Da_diff_total small">198,060</dd>
 			    </dl>
 			</div>
 			<div class="col2 away_diff">
 			    <dl class="">
 			        <dt class="grey50"><span class="thatdistrict">Batu Pahat</span></dt>
-			        <dd class="Dbelia_diff_pcnt large">60%</dd>
-			        <dd class="Dbelia_diff_total small">198,060</dd>
+			        <dd class="Da_diff_pcnt large">60%</dd>
+			        <dd class="Da_diff_total small">198,060</dd>
 			    </dl>
 			</div>
 	</div>
 	</div>
+</div> <!-- END SUMMARY  -->
 
 
 </div>
@@ -258,6 +263,30 @@ $(function() {
 			// console.log(selected_year);
 		}
 	});
+
+	$('.tab').click(function(){
+		var id = $(this).attr('id');
+		var year = (typeof window.selected_year != 'undefined')? window.selected_year: window.year;
+
+		$('.tab').removeClass('active').addClass('inactive');
+		$(this).removeClass('inactive').addClass('active');
+
+		switch(id){
+			case "penduduk":
+				calculate(min_year, year, window.slideval, 0);
+				summary(stats_set,datas,year);
+			break;
+			case "health":
+				calculate(min_year, year, window.slideval, 2, '#9FEE00');
+				summary(stats_set,datas,year);
+			break;
+		}
+
+
+
+		console.log(id);
+	});
+
 
 	// $('.year_bfr').hover(function() {
 	// 		$('.getYearBfr').show();
