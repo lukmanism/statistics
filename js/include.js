@@ -110,10 +110,10 @@ function calculate(min, yearindex, dataset){
 
 	// console.log(dataset);
 
-	// $.each(dataset, function(key, val){
-	// 	penduduk 			= dataset[0]['data'][index];
-	// 	window.belia 		= dataset[1]['data'][index];		
-	// });
+	$.each(dataset, function(key, val){
+		penduduk		= dataset[0]['data'][index];
+		window.belia	= dataset[1]['data'][index];		
+	});
 
 	belia_diff = penduduk - belia;
 	belia_diff_pcnt = (belia/penduduk) * 100;
