@@ -68,30 +68,6 @@ function linechart(datas){
 	window.slideval = lineChartData.datasets;
 }
 
-function comparison(min, yearindex, dataset){
-	var index = yearindex - min;
-
-	var penduduk, penduduk_bfr, penduduk_aft, belia, belia_bfr, belia_aft, belia_diff, belia_diff_pcnt, belia_diff_bfr, belia_diff_bfr_pcnt, belia_diff_aft, belia_diff_aft_pcnt;
-
-	penduduk = dataset[0]['data'][index];
-	penduduk_bfr = dataset[0]['data'][index-1];
-	penduduk_aft = dataset[0]['data'][index+1];
-	belia = dataset[1]['data'][index];
-	belia_bfr = dataset[1]['data'][index-1];
-	belia_aft = dataset[1]['data'][index+1];
-
-	belia_diff = window.belia - belia;
-	belia_diff_pcnt = ((window.belia/belia) * 100)-100;
-	belia_diff_bfr = window.belia_bfr - belia_bfr;
-	belia_diff_bfr_pcnt = ((window.belia_bfr/belia_bfr) * 100)-100;
-	belia_diff_aft = window.belia_aft - belia_aft;
-	belia_diff_aft_pcnt = ((window.belia_aft/belia_aft) * 100)-100;
-
-	// console.log('comparison',window.belia_bfr,belia_bfr);
-
-	loadDiffHome(penduduk,belia,belia_diff,belia_diff_pcnt,belia_diff_bfr,belia_diff_bfr_pcnt,belia_diff_aft,belia_diff_aft_pcnt);
-}
-
 function loadDiffHome(penduduk,belia,belia_diff,belia_diff_pcnt,belia_diff_bfr,belia_diff_bfr_pcnt,belia_diff_aft,belia_diff_aft_pcnt){
 	$(".belia_total").text(output(belia,0));
 	$(".pop_total").text(output(penduduk,0));
@@ -120,24 +96,29 @@ function loadDiffHome(penduduk,belia,belia_diff,belia_diff_pcnt,belia_diff_bfr,b
 }
 
 
-
-
 function calculate(min, yearindex, dataset){
 	var index = yearindex - min;
 
 	var penduduk, penduduk_bfr, penduduk_aft, belia_diff, belia_diff_pcnt, belia_diff_bfr, belia_diff_bfr_pcnt, belia_diff_aft, belia_diff_aft_pcnt;
 
-	penduduk = dataset[0]['data'][index];
-	penduduk_bfr = dataset[0]['data'][index-1];
-	penduduk_aft = dataset[0]['data'][index+1];
-	window.belia = dataset[1]['data'][index];
-	window.belia_bfr = dataset[1]['data'][index-1];
-	window.belia_aft = dataset[1]['data'][index+1];
+	penduduk 			= dataset[0]['data'][index];
+	window.belia 		= dataset[1]['data'][index];
+	penduduk_bfr 		= dataset[0]['data'][index-1];
+	window.belia_bfr 	= dataset[1]['data'][index-1];
+	penduduk_aft 		= dataset[0]['data'][index+1];
+	window.belia_aft 	= dataset[1]['data'][index+1];
+
+	// console.log(dataset);
+
+	// $.each(dataset, function(key, val){
+	// 	penduduk 			= dataset[0]['data'][index];
+	// 	window.belia 		= dataset[1]['data'][index];		
+	// });
 
 	belia_diff = penduduk - belia;
 	belia_diff_pcnt = (belia/penduduk) * 100;
-	belia_diff_bfr = belia - belia_bfr;
-	belia_diff_bfr_pcnt = ((belia/belia_bfr) * 100)-100;
+	belia_diff_bfr = belia_bfr-belia;
+	belia_diff_bfr_pcnt = ((belia_bfr/belia) * 100)-100;
 	belia_diff_aft = belia_aft - belia;
 	belia_diff_aft_pcnt = ((belia_aft/belia) * 100)-100;
 
@@ -170,7 +151,6 @@ function bar(stats_set,datas,thisyear){
 
 	var index = (typeof thisyear != 'undefined')? ((thisyear-window.min_year)): (window.year-window.min_year);
 	var bardata = Array();
-	console.log(stats_set,datas,year,index);
 
 	for (var i = 0; i < stats_set; i++) {
 		cat.push((datas[i][2]['district'])? datas[i][2]['district'] : datas[i][3]['state']);
@@ -223,6 +203,7 @@ function bar(stats_set,datas,thisyear){
 	    tooltip: {
 	        visible: true,
 			template: function(e){
+				window.comparex = 0;
 				setSparklines(e.category);
 	      		return e.series['name'] + ': ' + output(e.value,0); 
 			}
@@ -259,9 +240,6 @@ function pushSparklines(stats_set, getdata, min_year, thisyear){
 	var BPenduduk = thisdata[window.comparex][0]['data'];
 	var index = (typeof thisyear != 'undefined')? ((thisyear-window.min_year)): (window.year-window.min_year);
 
-	sparklines('.PSpark','#1C638D', Bbelia);
-	sparklines('.BSpark','#4DA3D5', BPenduduk);
-
 	var piedata = [
 		{value: (BPenduduk[index]-Bbelia[index]), color: "#1c638d"},
 		{value: Bbelia[index], color:"#4DA3D5"}
@@ -272,10 +250,14 @@ function pushSparklines(stats_set, getdata, min_year, thisyear){
 	var title = (thisdata[window.comparex][2]['district'])? thisdata[window.comparex][2]['district'] : thisdata[window.comparex][3]['state'];
 	$('.thatdistrict').text(title);
 
-	var belia_diff_bfr = (Bbelia[index]-Bbelia[index-1]);
-	var belia_diff_aft = (Bbelia[index+1]-Bbelia[index]);
-	var belia_diff_bfr_pcnt = ((Bbelia[index]/Bbelia[index-1]) * 100)-100;
-	var belia_diff_aft_pcnt = ((Bbelia[index+1]/Bbelia[index]) * 100)-100;
+	var belia = Bbelia[index];
+	var belia_bfr = Bbelia[index-1];
+	var belia_aft = Bbelia[index+1];
+
+	var belia_diff_bfr = veriNum(belia_bfr-belia);
+	var belia_diff_aft = veriNum(belia_aft-belia);
+	var belia_diff_bfr_pcnt = veriNum(((belia_bfr/belia) * 100)-100);
+	var belia_diff_aft_pcnt = veriNum(((belia_aft/belia) * 100)-100);
 
 	var belia_diff_pcnt = (Bbelia[index]/BPenduduk[index]) * 100;
 
@@ -302,8 +284,6 @@ function pushSparklines(stats_set, getdata, min_year, thisyear){
 
 	pie(Dpiedata, 'Dpie');
 
-	// console.log('away:',home_total,away_total,home_pcnt,away_pcnt);
-
 	$(".home_diff .Dbelia_diff_total").text(output(home_total));
 	$(".away_diff .Dbelia_diff_total").text(output(away_total));
 	$(".home_diff .Dbelia_diff_pcnt").text(output(home_pcnt)+'%');
@@ -321,23 +301,8 @@ function pushSparklines(stats_set, getdata, min_year, thisyear){
 	}	
 }
 
-
-function sparklines(target, color, data){
-	$(target).kendoSparkline({
-        type: "line",
-        data: data,
-        seriesDefaults: {
-            type: "line",
-			color: color, 
-            markers: { visible: false },
-            line: { width: 2 }
-        },
-        axisDefaults: {
-            visible: false,
-            majorGridLines: { visible: false }
-        },
-        legend: { visible: false }
-    });
+function veriNum(z){
+	return (z != 'Infinity')? z: 0;
 }
 
 function summary(stats_set,datas,val){
@@ -349,7 +314,6 @@ function summary(stats_set,datas,val){
 		$('.widget_tahun_prev').html(val-1);
 		$('.widget_tahun_aft').html(val+1);		
 	}
-	window.comparex = 0;
 }
 
 function getYearBfr(){
