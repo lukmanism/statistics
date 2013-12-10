@@ -163,12 +163,14 @@ function output(number, dec)	{
     return x1 + x2;
 }
 
-function bar(stats_set,datas,year){
+function bar(stats_set,datas,thisyear){
 	var cat = Array();
 	var Bbelia = Array();
 	var Bpenduduk = Array();
-	var index = (year)? ((year-min_year)): (stats_set-1);
+
+	var index = (typeof thisyear != 'undefined')? ((thisyear-window.min_year)): (window.year-window.min_year);
 	var bardata = Array();
+	console.log(stats_set,datas,year,index);
 
 	for (var i = 0; i < stats_set; i++) {
 		cat.push((datas[i][2]['district'])? datas[i][2]['district'] : datas[i][3]['state']);
@@ -248,14 +250,14 @@ function setSparklines(getData){
 	});
 
 	pushSparklines(window.stats_set, window.pushdatas, window.min_year, window.selected_year);
-	$('.thatdistrict').text(getData);
 }
 
-function pushSparklines(stats_set, getdata, min_year, year){
+function pushSparklines(stats_set, getdata, min_year, thisyear){
 	var thisdata = (typeof window.pushdatas == 'undefined')? getdata : window.pushdatas;
-	var Bbelia = thisdata[0][1]['data'];
-	var BPenduduk = thisdata[0][0]['data'];
-	var index = (year)? ((year-min_year)): (stats_set-1);
+
+	var Bbelia = thisdata[window.comparex][1]['data'];
+	var BPenduduk = thisdata[window.comparex][0]['data'];
+	var index = (typeof thisyear != 'undefined')? ((thisyear-window.min_year)): (window.year-window.min_year);
 
 	sparklines('.PSpark','#1C638D', Bbelia);
 	sparklines('.BSpark','#4DA3D5', BPenduduk);
@@ -267,13 +269,15 @@ function pushSparklines(stats_set, getdata, min_year, year){
 
 	pie(piedata, 'cpie');
 
+	var title = (thisdata[window.comparex][2]['district'])? thisdata[window.comparex][2]['district'] : thisdata[window.comparex][3]['state'];
+	$('.thatdistrict').text(title);
+
 	var belia_diff_bfr = (Bbelia[index]-Bbelia[index-1]);
 	var belia_diff_aft = (Bbelia[index+1]-Bbelia[index]);
 	var belia_diff_bfr_pcnt = ((Bbelia[index]/Bbelia[index-1]) * 100)-100;
 	var belia_diff_aft_pcnt = ((Bbelia[index+1]/Bbelia[index]) * 100)-100;
 
 	var belia_diff_pcnt = (Bbelia[index]/BPenduduk[index]) * 100;
-
 
 	$(".Bbelia_total").text(output(Bbelia[index]));
 	$(".Bpop_total").text(output(BPenduduk[index]));
@@ -297,7 +301,6 @@ function pushSparklines(stats_set, getdata, min_year, year){
 	];
 
 	pie(Dpiedata, 'Dpie');
-
 
 	// console.log('away:',home_total,away_total,home_pcnt,away_pcnt);
 
@@ -346,6 +349,7 @@ function summary(stats_set,datas,val){
 		$('.widget_tahun_prev').html(val-1);
 		$('.widget_tahun_aft').html(val+1);		
 	}
+	window.comparex = 0;
 }
 
 function getYearBfr(){

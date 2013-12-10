@@ -8,21 +8,47 @@ if (mysqli_connect_errno($conn)) {
 	echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
-@$d = ($_GET['d'])? cleanURI($_GET['d']) : '';
-@$s = ($_GET['s'])? cleanURI($_GET['s']) : '';
-@$Dt = ($_GET['Dt'])? cleanURI($_GET['Dt']) : '';
+@$d = ($_GET['d'])? strtolower(cleanURI($_GET['d'])) : '';
+@$s = ($_GET['s'])? strtolower(cleanURI($_GET['s'])) : '';
+@$Dt = ($_GET['Dt'])? strtolower(cleanURI($_GET['Dt'])) : '';
 
+
+$getlatlng = "SELECT lat, lng FROM belia WHERE ";
+$getlatlng .= ($d)? " district IN('$d') ":  " state IN('$s') AND district = ''";
+$getlatlng .= "LIMIT 1;";
+
+$qresult = mysqli_query($conn, $getlatlng);
+$getlatlng = mysqli_fetch_array($qresult);
+
+$qrange = "SELECT district, state, ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS(".$getlatlng['lat'].") ) + COS( RADIANS( lat ) ) * COS( RADIANS(".$getlatlng['lat'].") ) * COS( RADIANS( lng ) - RADIANS(".$getlatlng['lng'].") ) ) *6380 AS distance
+	FROM belia
+	WHERE ACOS( SIN( RADIANS( lat ) ) * SIN( RADIANS(".$getlatlng['lat'].") ) + COS( RADIANS( lat ) ) * COS( RADIANS(".$getlatlng['lat'].") ) * COS( RADIANS( lng ) - RADIANS(".$getlatlng['lng'].") ) ) *6380 < 1000 ";
+$qrange .= ($d)? ' AND district != "" ': ' AND district = "" ';
+$qrange .= "ORDER BY distance LIMIT 0, 3;";
+
+// echo $qrange;
+
+$qrresult = mysqli_query($conn, $qrange);
+
+	while($qrange = mysqli_fetch_array($qrresult)) {
+		$getloc[] = ($d)? strtolower($qrange[0]): strtolower($qrange[1]);
+	}
+
+	if(($s) && !in_array($s, $getloc)){
+		array_unshift($getloc, $s);
+		array_pop($getloc);
+	} 
+
+	$getloc1 = implode("','", $getloc);
+	$getloc2 = implode(",", $getloc);
 
 $query = "SELECT * FROM belia a ";
-$query .= ($Dt)? " LEFT JOIN data b ON a.id = b.district_id LEFT JOIN data_cat c ON b.data_cat = c.id": "";
 $query .= " WHERE ";
-$query .= ($d)? " a.district IN('$d') ":  " a.state IN('$s') ";
-$query .= ($Dt)? " AND b.data_cat IN('$Dt') ":  "";
-$query .= ($d)? " ORDER BY FIND_IN_SET(a.district,'".$_GET['d']."') ": " ORDER BY FIND_IN_SET(a.state,'".$_GET['s']."') ";
+$query .= ($d)? " a.district IN('".$getloc1."') ":  " a.state IN('".$getloc1."') ";
+// $query .= ($Dt)? " AND b.data_cat IN('$Dt') ":  "";
+$query .= ($d)? " ORDER BY FIND_IN_SET(a.district,'".$getloc2."') ": " ORDER BY FIND_IN_SET(a.state,'".$getloc2."') ";
 
 $query .= ";";
-
-// echo $query;
 
 $result = mysqli_query($conn, $query);
 $json = '';

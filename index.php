@@ -28,8 +28,8 @@
 	<div class="clear"></div>
 
 	<div class="content">
-		<div class="widget_title top15">Graf Belia di <span class="title">Batu Pahat</span></div>
-		<div class="widget_title_s bottom15">Untuk Tahun <span class="widget_tahun">2013</span></div>
+		<!-- <div class="widget_title top15">Graf Belia di <span class="title">Batu Pahat</span></div> -->
+		<div class="widget_title_s bottom15">Graf Belia di <span class="title">Batu Pahat</span> Untuk Tahun <span class="widget_tahun">2013</span></div>
 		<canvas id="linechart" height="200" width="688"></canvas>
 		<div class="clear"></div>
 
@@ -70,9 +70,9 @@
 		<div class="widget_title_s">Perbandingan Antara Daerah Untuk Tahun <span class="widget_tahun">2013</span></div>
 		<div class="bar top15" id="compare" ></div>
 	<div class="clear"></div>
-	<div class="widget_title_s margin15">Perbandingan di antara <span class="thisdistrict">Batu Pahat</span> dengan <span class="thatdistrict">Batu Pahat</span></div>
+	<div class="widget_title_s margin15">Perbandingan di antara <span class="thisdistrict">Batu Pahat</span> dengan <span class="thatdistrict">Lorem</span></div>
 	<div class="bar_summary">
-		<div class="widget_title bottom15"><span class="thisdistrict">Batu Pahat</span> vs. <span class="thatdistrict">Batu Pahat</span></div>
+		<div class="widget_title bottom15"><span class="thisdistrict">Batu Pahat</span> vs. <span class="thatdistrict">Lorem</span></div>
 	
 			<div class="col2 vseparator">
 				<canvas id="pie" height="100px" width="100px"></canvas>
@@ -151,7 +151,7 @@
 			</div>
 	<div class="clear"></div>
 		<div class="clear splitter1 vseparator"></div>
-		<div class="widget_title_s margin15">Perbezaan belia di antara <span class="thisdistrict">Batu Pahat</span> dengan <span class="thatdistrict">Batu Pahat</span> tahun <span class="widget_tahun">2013</span></div>
+		<div class="widget_title_s margin15">Perbezaan belia di antara <span class="thisdistrict">Batu Pahat</span> dengan <span class="thatdistrict">Lorem</span> tahun <span class="widget_tahun">2013</span></div>
 
 			<div class="clear splitter1 vseparator margin15"></div>
 			<div style="text-align:center;"><canvas id="Dpie" height="100px" width="100px"></canvas></div>
@@ -169,7 +169,7 @@
 			</div>
 			<div class="col2 away_diff">
 			    <dl class="">
-			        <dt class="grey50"><span class="thatdistrict">Batu Pahat</span></dt>
+			        <dt class="grey50"><span class="thatdistrict">Lorem</span></dt>
 			        <dd class="Dbelia_diff_pcnt large">60%</dd>
 			        <dd class="Dbelia_diff_total small">198,060</dd>
 			    </dl>
@@ -208,6 +208,7 @@ $(function() {
 	window.scaleSteps = <?php echo $scaleSteps; ?>;
 	window.scaleStepWidth = <?php echo $scaleStepWidth; ?>;
 	window.scaleStartValue = <?php echo $scaleStartValue; ?>;
+	window.comparex = 1;
 	var loaddata;
 	var datas = [];
 
@@ -232,7 +233,7 @@ $(function() {
 	var title = (datas[0][2]['district'])? datas[0][2]['district'] : datas[0][3]['state'];
 	$('.title').text(main_title);
 	$('.thisdistrict').text(title);
-	$('.thatdistrict').text(title);
+	// $('.thatdistrict').text(title);
 
 
 	var getYear = [<?php echo $getYear; ?>];
